@@ -12,8 +12,31 @@ public class EventDAO {
 	public Event DBObjectToEvent(DBObject dbObject) {
 		//must check the type of event to initialize the corresponding correct type of event
 		Event event = null;
-		
-		
+		try {
+			String eventType = dbObject.get("type").toString();
+			event = (Event) Class.forName(eventType).newInstance();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Field[] eventFields = Event.class.getDeclaredFields();
+		int fieldsNum = eventFields.length;
+
+		int i = 0;
+		while(i < fieldsNum){
+			Field field = eventFields[i];
+			field.setAccessible(true);
+			try {
+				if(field.getType() == int.class)
+					field.setInt(event, Integer.parseInt(dbObject.get(field.getName()).toString()));
+				else 
+					field.set(event, dbObject.get(field.getName()));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			i++;
+		}
 		return event;
 	}
 	
@@ -23,7 +46,6 @@ public class EventDAO {
 		
 		Field[] eventFields = Event.class.getDeclaredFields();
 		int fieldsNum = eventFields.length;
-		System.out.println("EVENT: " + event);
 
 		while(i < fieldsNum){
 			

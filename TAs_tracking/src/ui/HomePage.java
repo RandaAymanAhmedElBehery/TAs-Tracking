@@ -30,14 +30,14 @@ public class HomePage extends JFrame{
 		JButton newTA = new JButton ("Add a new TA");
 		JButton viewAllTAs = new JButton("List All TAs");
 		JButton addEvent = new JButton("Add an Event to a TA");
-		JButton history = new JButton ("View TA history");
+		JButton viewTAHistory = new JButton("View a Certain TA history");
 		JButton filters = new JButton ("Custom Search (filters)");
 		
 		this.setLayout(new GridLayout(5,1));
 		this.add(newTA);
 		this.add(viewAllTAs);
 		this.add(addEvent);
-		this.add(history);
+		this.add(viewTAHistory);
 		this.add(filters);
 		
 		newTA.addActionListener(new ActionListener() {

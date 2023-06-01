@@ -46,7 +46,46 @@ public class TADAO {
 	
 	public TA DBObjectToTAObject(DBObject dbObject) {
 		TA ta = new TA();
+		Field[] taFields = TA.class.getDeclaredFields();
+		int fieldsNum = taFields.length;
+
+		int i = 0;
+		while(i < fieldsNum){
+			Field field = taFields[i];
+			field.setAccessible(true);
+			try {
+				if(field.getType() == int.class)
+					field.setInt(ta, Integer.parseInt(dbObject.get(field.getName()).toString()));
+				else if(field.getName() != "lastEvent" && field.getName() != "history")
+					field.set(ta, dbObject.get(field.getName()));
+			} catch (IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			}
+			i++;
+		}
 		
+		EventDAO eventDAO = new EventDAO();
+		//setting the lastEvent
+		DBObject lastEventObject = (DBObject) dbObject.get("lastEvent");
+		if(lastEventObject != null) {
+			Event lastEvent = eventDAO.DBObjectToEvent(lastEventObject);
+			ta.setLastEvent(lastEvent);
+		}
+		
+		//setting History
+		ArrayList<DBObject> historyDB = new ArrayList<DBObject>();
+		historyDB = (ArrayList<DBObject>) dbObject.get("history");
+		
+		if(historyDB != null) {
+			ArrayList<Event> taHistory = new ArrayList<Event>();
+			if(historyDB != null) {
+				for (DBObject db : historyDB) {
+					Event e = eventDAO.DBObjectToEvent(db);
+					taHistory.add(e);
+				}
+			}
+			ta.setHistory(taHistory);
+		}
 		
 		return ta;
 	}
@@ -91,8 +130,8 @@ public class TADAO {
 		return ta_dbObject;
 	}
 	
-	public List<TA> getAllTAs(){
-		List<TA> allTAs = new ArrayList<TA>();
+	public ArrayList<TA> getAllTAs(){
+		ArrayList<TA> allTAs = new ArrayList<TA>();
 		DBCollection collection = database.getCollection(ta_databaseName);
 		
 		List<DBObject> dbObjects = collection.find().toArray();
@@ -100,7 +139,7 @@ public class TADAO {
 			TA ta = DBObjectToTAObject(obj);
 			allTAs.add(ta);
 		}
-		
+//		System.out.println(allTAs);
 		return allTAs;
 	}
 	
@@ -122,7 +161,7 @@ public class TADAO {
 		
 		TADAO taDAO = new TADAO();
 //		System.out.println(taDAO.getTAByName("nn"));
-		System.out.println(taDAO.getAllTAs().get(0));
+		taDAO.getAllTAs().get(0).display();
 		/*
 		TA ta = new TA();
 		ta.setName("basma");

@@ -1,6 +1,7 @@
 package controllers;
 // add a new TA or update any data of an existing TA
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import Exceptions.TAAlreadyExistsException;
@@ -31,6 +32,11 @@ public class TAController {
 		
 		taDAO.addNewTA(ta);
 		
+	}
+	
+	public ArrayList<TA> getAllTAs(){
+		TADAO tadao = new TADAO();
+		return tadao.getAllTAs();
 	}
 
 }

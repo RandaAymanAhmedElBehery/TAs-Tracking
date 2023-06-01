@@ -38,6 +38,19 @@ public class TA {
 		history.add(event);
 	}
 	
+	public void display() {
+		System.out.println("**************** TA Info \"**************** ");
+		System.out.println(name);
+		System.out.println(mobileNo);
+		System.out.println(email);
+		System.out.println(title);
+		System.out.println(yearOfHiring);
+		System.out.println(onVacation);
+		System.out.println(lastEvent);
+		for(Event e: history)
+			System.out.println(e);
+		System.out.println("********************************************");
+	}
 	@Override
 		public String toString() {
 			return name;

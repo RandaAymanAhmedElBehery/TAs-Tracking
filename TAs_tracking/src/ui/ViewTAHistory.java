@@ -1,7 +1,7 @@
 package ui;
 
-import javax.swing.JFrame;
-
-public class ViewTAHistory extends JFrame{
+public class ViewTAHistory {
+	
+	//basic info  + list of event panels
 
 }

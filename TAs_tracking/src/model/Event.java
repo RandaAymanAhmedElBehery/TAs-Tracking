@@ -7,6 +7,11 @@ public abstract class Event {
 	String type;
 	Date date; //start date if an event has from and to
 	
+	@Override
+	public String toString() {
+		
+		return "[type: " + type + " , date: " +date + "]";
+	}
 	public String getType() {
 		return type;
 	}
