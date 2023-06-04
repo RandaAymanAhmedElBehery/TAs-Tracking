@@ -12,7 +12,10 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
+import controllers.FiltersController;
 import model.Event;
+import model.MastersExtension;
+import model.PhdExtension;
 import model.TA;
 import utils.ConfigReader;
 
@@ -156,25 +159,79 @@ public class TADAO {
 		
 		return foundTA;
 	}
+	
+	public ArrayList<TA> getTAByVacationStatus(boolean vacationStatus) {
+
+		ArrayList<TA> tasByVacation = new ArrayList<TA>();
+
+		DBCollection collection = database.getCollection(ta_databaseName);
+		DBObject ta_dbObject = new BasicDBObject();
+		ta_dbObject.put("onVacation", vacationStatus);
+		
+		List<DBObject> result = collection.find(ta_dbObject).toArray();
+		if(result != null){
+			for(DBObject obj : result) {
+				TA ta = DBObjectToTAObject(obj);
+				tasByVacation.add(ta);
+			}
+		}
+		
+		return tasByVacation;
+	}
+	
+	public ArrayList<TA> getTAByTitle(String title) {
+
+		ArrayList<TA> tasByTitle = new ArrayList<TA>();
+
+		DBCollection collection = database.getCollection(ta_databaseName);
+		DBObject ta_dbObject = new BasicDBObject();
+		ta_dbObject.put("title", title);
+		
+		List<DBObject> result = collection.find(ta_dbObject).toArray();
+		if(result != null){
+			for(DBObject obj : result) {
+				TA ta = DBObjectToTAObject(obj);
+				tasByTitle.add(ta);
+			}
+		}
+		
+		return tasByTitle;
+	}
 
 	public static void main(String[] args) {
 		
-		TADAO taDAO = new TADAO();
+//		TADAO taDAO = new TADAO();
 //		System.out.println(taDAO.getTAByName("nn"));
-		taDAO.getAllTAs().get(0).display();
-		/*
-		TA ta = new TA();
-		ta.setName("basma");
-		List<Event> events = new ArrayList<Event>();
-		MastersExtension me = new MastersExtension();
-		me.setType("masters");
-		events.add(me);
-		events.add(new PhdExtension());
 		
-		ta.setHistory(events);
+//		TA ta = new TA();
+//		ta.setName("xxx");
+//		ta.setEmail("xxx@x.com");
+//		ta.setMobileNo("0123456789");
+//		ta.setYearOfHiring("2020");
+//		ta.setTitle("ta");
+//		List<Event> events = new ArrayList<Event>();
+//		MastersExtension me = new MastersExtension();
+//		me.setType("masters");
+//		events.add(me);
+//		ta.setLastEvent(me);
+//		
+//
+//		//events.add(new PhdExtension());
+//		
+//		ta.setHistory(events);
+//		
+//		TADAO dao = new TADAO();
+//		dao.getAllTAs().get(2).display();
+
+//		dao.addNewTA(ta);
 		
-		TADAO dao = new TADAO();
-		dao.addNewTA(ta);
-		*/
+		FiltersController ctrl = new FiltersController();
+		List<TA> res = ctrl.filterByEvent("model.MastersExtension");
+		System.out.println(res.size());
+		System.out.println(res.get(0));
+		
+		
+		
 	}
+	
 }
