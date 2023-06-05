@@ -2,6 +2,7 @@ package dao;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mongodb.BasicDBObject;
@@ -13,6 +14,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
 import model.Event;
+import model.MastersExtension;
 import model.TA;
 import utils.ConfigReader;
 
@@ -156,12 +158,36 @@ public class TADAO {
 		
 		return foundTA;
 	}
+	
+	public void removeTA(TA ta) {
+		
+		DBCollection collection = database.getCollection(ta_databaseName);
+		
+		DBObject dbObject = new BasicDBObject();
+		dbObject.put("name", ta.getName());
+		
+		DBObject db_ta = collection.findOne(dbObject);
+		collection.remove(db_ta);
+		
+	}
+	
+	public void AddEventToTA(Event event, TA ta) {
+		removeTA(ta);
+		ta.addEventtoTA(event);
+		addNewTA(ta);
+	}
 
 	public static void main(String[] args) {
 		
 		TADAO taDAO = new TADAO();
 //		System.out.println(taDAO.getTAByName("nn"));
 		taDAO.getAllTAs().get(0).display();
+		Event e = new MastersExtension();
+		e.setType(MastersExtension.class.getName());
+		e.setDate(new Date());
+		taDAO.AddEventToTA(e, taDAO.getAllTAs().get(0));
+//		taDAO.AddEventToTA(new PhdExtension(), taDAO.getAllTAs().get(0));
+//		taDAO.removeTA(taDAO.getAllTAs().get(0));
 		/*
 		TA ta = new TA();
 		ta.setName("basma");

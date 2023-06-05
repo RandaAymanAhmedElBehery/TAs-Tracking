@@ -1,17 +1,22 @@
 package ui;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Point;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import dao.TADAO;
+import model.Event;
 import model.TA;
+import utils.DateUtils;
 
 public class ViewTAHistory extends JFrame{
 	
-	int width = 600;
+	int width = 1200;
 	int height = 800;
 	
 	TA ta;
@@ -20,9 +25,9 @@ public class ViewTAHistory extends JFrame{
 	public ViewTAHistory(TA ta) {
 		setSize(width, height);
 		setTitle(ta.getName());
-		setLocation(new Point(500, 300));
+		setLocation(new Point(500, 200));
 		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		this.ta = ta;
 		addControls();
@@ -31,6 +36,11 @@ public class ViewTAHistory extends JFrame{
 	}
 
 	private void addControls() {
+		this.setLayout(new GridLayout(2,1));
+		
+		///////////////////// Adding Basic Info /////////////////////
+		JPanel basicInfoPanel = new JPanel();
+		
 		JLabel tanameLabel = new JLabel("TA Name:");
 		tanameLabel.setBounds(20, 5, 70, 25);
 		JTextField taname = new JTextField(ta.getName());
@@ -51,7 +61,7 @@ public class ViewTAHistory extends JFrame{
 		
 		JLabel yearLabel = new JLabel("Date of hiring:");
 		yearLabel.setBounds(20, 155, 200, 25);
-		JTextField year = new JTextField(ta.getYearOfHiring());
+		JTextField year = new JTextField(DateUtils.dateToString(ta.getHiringDate()));
 		year.setBounds(20, 180, 200, 25);
 		year.setEditable(false);
 		
@@ -67,33 +77,41 @@ public class ViewTAHistory extends JFrame{
 		onVacation.setBounds(20, 280, 200, 25);
 		onVacation.setEditable(false);
 		
-		this.setLayout(null);
+		basicInfoPanel.setLayout(null);
 		
-		this.add(tanameLabel);
-		this.add(taname);
+		basicInfoPanel.add(tanameLabel);
+		basicInfoPanel.add(taname);
 		
-		this.add(mobileNoLabel);
-		this.add(mobileNo);
+		basicInfoPanel.add(mobileNoLabel);
+		basicInfoPanel.add(mobileNo);
 		
-		this.add(emailLabel);
-		this.add(email);
+		basicInfoPanel.add(emailLabel);
+		basicInfoPanel.add(email);
 		
-		this.add(yearLabel);
-		this.add(year);
+		basicInfoPanel.add(yearLabel);
+		basicInfoPanel.add(year);
 		
-		this.add(titleLabel);
-		this.add(title);
+		basicInfoPanel.add(titleLabel);
+		basicInfoPanel.add(title);
 		
-		this.add(onVacationLabel);
-		this.add(onVacation);
+		basicInfoPanel.add(onVacationLabel);
+		basicInfoPanel.add(onVacation);
 		
+		this.add(basicInfoPanel,BorderLayout.NORTH);
+		
+		/////////////////// Adding Events /////////////////////
+		List<Event> history = ta.getHistory();
+
+		JPanel historyPanel = new JPanel();
+		historyPanel.setLayout(new GridLayout(history.size(),1,0,0));
+		for (Event e : history) {
+			EventPanel ep = new EventPanel(e);
+			historyPanel.add(ep);
+			
+		}
+		this.add(historyPanel);
 		
 	}
 	
-	public static void main(String[] args) {
-		TA ta = new TADAO().getTAByName("n");
-		ta.display();
-		new ViewTAHistory(ta);
-	}
 
 }

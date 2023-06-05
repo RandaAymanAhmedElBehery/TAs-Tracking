@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import Exceptions.TAAlreadyExistsException;
 import controllers.TAController;
 import utils.TitlesReader;
+import utils.DateUtils;
 
 public class NewTAPage extends JFrame{
 	
@@ -48,7 +49,7 @@ public class NewTAPage extends JFrame{
 		JTextField email = new JTextField("");
 		email.setBounds(20, 130, 200, 25);
 		
-		JLabel yearLabel = new JLabel("Date of hiring:");
+		JLabel yearLabel = new JLabel("Date of hiring (DD/MM/YYYY):");
 		yearLabel.setBounds(20, 155, 200, 25);
 		JTextField year = new JTextField("");
 		year.setBounds(20, 180, 200, 25);
@@ -110,12 +111,17 @@ public class NewTAPage extends JFrame{
 						userMessages.setForeground(Color.RED);
 						userMessages.setText("All fields are required");
 					}else {
-						taController.addNewTA(taname.getText(), mobileNo.getText(), email.getText(), 
-								year.getText(),titles.getSelectedItem().toString()
-								, onVacation.getSelectedItem().toString());
-						
-						userMessages.setForeground(Color.GREEN);
-						userMessages.setText("TA Added Successfully");
+						if(DateUtils.matchDate(year.getText())) {
+							taController.addNewTA(taname.getText(), mobileNo.getText(), email.getText(), 
+									year.getText(),titles.getSelectedItem().toString()
+									, onVacation.getSelectedItem().toString());
+							
+							userMessages.setForeground(Color.GREEN);
+							userMessages.setText("TA Added Successfully");
+						}else {
+							userMessages.setForeground(Color.RED);
+							userMessages.setText("Please Enter a valid date");
+						}
 					}
 				} catch (TAAlreadyExistsException e1) {
 					userMessages.setForeground(Color.RED);
@@ -133,11 +139,11 @@ public class NewTAPage extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new HomePage();
+				new ViewAllTAsPage();
 				
 			}
 		});
 	}
 
-
+	
 }
