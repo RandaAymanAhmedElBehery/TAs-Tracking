@@ -2,6 +2,7 @@ package dao;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mongodb.BasicDBObject;
@@ -11,10 +12,13 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.WriteResult;
 
+import controllers.AddEventController;
 import controllers.FiltersController;
 import model.Event;
 import model.MastersExtension;
+import model.MastersRegistration;
 import model.PhdExtension;
 import model.TA;
 import utils.ConfigReader;
@@ -197,6 +201,30 @@ public class TADAO {
 		
 		return tasByTitle;
 	}
+	
+	public boolean updateTA(TA ta , TA beforeUpdate) {
+
+		DBCollection collection = database.getCollection(ta_databaseName);
+		DBObject ta_dbObject = TAToDBObject(ta);
+		DBObject beforeUpdate_dbObject = TAToDBObject(beforeUpdate);
+		DBObject query = new BasicDBObject();
+		query.put("name", beforeUpdate.getName());
+		WriteResult deleteResult = null;
+		
+		try {
+			deleteResult = collection.remove(query);
+			if (deleteResult.getN() == 1){
+				collection.insert(ta_dbObject);
+				return true;
+			}
+		}catch (Exception e){
+			if (deleteResult.getN() == 1){
+				collection.insert(beforeUpdate_dbObject);
+				return false;
+			}
+		}
+		return false;
+	}
 
 	public static void main(String[] args) {
 		
@@ -225,12 +253,12 @@ public class TADAO {
 
 //		dao.addNewTA(ta);
 		
-		FiltersController ctrl = new FiltersController();
-		List<TA> res = ctrl.filterByEvent("model.MastersExtension");
-		System.out.println(res.size());
-		System.out.println(res.get(0));
+		Event e = new MastersRegistration();
+		e.setType("model.MastersRegistration");
+		e.setDate(new Date());
 		
-		
+		AddEventController ctrlr = new AddEventController();
+		System.out.println(ctrlr.addEventToTA("Randa", e));
 		
 	}
 	

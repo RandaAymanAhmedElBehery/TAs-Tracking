@@ -1,5 +1,5 @@
 package model;
 
-public class MastersRegistration {
+public class MastersRegistration extends Event{
 
 }
