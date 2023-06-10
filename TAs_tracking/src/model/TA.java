@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TA {
@@ -10,7 +11,7 @@ public class TA {
 	String mobileNo;
 	String email;
 	String title;
-	String yearOfHiring;
+	Date hiringDate;
 	boolean onVacation;
 	Event lastEvent;
 	List<Event> history;
@@ -19,12 +20,12 @@ public class TA {
 		
 	}
 	
-	public TA(String name2, String mobileNo2, String email2, String year, String title2, 
+	public TA(String name2, String mobileNo2, String email2, Date hiringDate, String title2, 
 			String onVacation2) {
 		name = name2;
 		mobileNo = mobileNo2;
 		email = email2;
-		yearOfHiring = year;
+		this.hiringDate = hiringDate;
 		title = title2;
 		if(onVacation2.equalsIgnoreCase("No"))
 			onVacation = false;
@@ -44,7 +45,7 @@ public class TA {
 		System.out.println(mobileNo);
 		System.out.println(email);
 		System.out.println(title);
-		System.out.println(yearOfHiring);
+		System.out.println(hiringDate);
 		System.out.println(onVacation);
 		System.out.println(lastEvent);
 		for(Event e: history)
@@ -65,7 +66,7 @@ public class TA {
 		clone.mobileNo = this.mobileNo;
 		clone.onVacation = this.onVacation;
 		clone.title = this.title;
-		clone.yearOfHiring = this.yearOfHiring;
+		clone.hiringDate = this.hiringDate;
 		clone.lastEvent = this.lastEvent;
 		clone.history = new ArrayList<Event>();
 		clone.history.addAll(this.history);
@@ -119,13 +120,12 @@ public class TA {
 	public void setHistory(List<Event> history) {
 		this.history = history;
 	}
-	
-	public String getYearOfHiring() {
-		return yearOfHiring;
-	}
-	public void setYearOfHiring(String yearOfHiring) {
-		this.yearOfHiring = yearOfHiring;
-	}
-	
 
+	public Date getHiringDate() {
+		return hiringDate;
+	}
+
+	public void setHiringDate(Date hiringDate) {
+		this.hiringDate = hiringDate;
+	}
 }

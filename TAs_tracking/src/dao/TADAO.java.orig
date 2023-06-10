@@ -18,8 +18,11 @@ import controllers.AddEventController;
 import controllers.FiltersController;
 import model.Event;
 import model.MastersExtension;
+<<<<<<< HEAD
 import model.MastersRegistration;
 import model.PhdExtension;
+=======
+>>>>>>> bc78b2169b36c12e115b9f9aab40db308d450bb2
 import model.TA;
 import utils.ConfigReader;
 
@@ -164,25 +167,9 @@ public class TADAO {
 		return foundTA;
 	}
 	
-	public void removeTA(TA ta) {
-		
-		DBCollection collection = database.getCollection(ta_databaseName);
-		
-		DBObject dbObject = new BasicDBObject();
-		dbObject.put("name", ta.getName());
-		
-		DBObject db_ta = collection.findOne(dbObject);
-		collection.remove(db_ta);
-		
-	}
-	
-	public void AddEventToTA(Event event, TA ta) {
-		removeTA(ta);
-		ta.addEventtoTA(event);
-		addNewTA(ta);
-	}
-
+<<<<<<< HEAD
 	public ArrayList<TA> getTAByVacationStatus(boolean vacationStatus) {
+
 		ArrayList<TA> tasByVacation = new ArrayList<TA>();
 
 		DBCollection collection = database.getCollection(ta_databaseName);
@@ -241,12 +228,32 @@ public class TADAO {
 			}
 		}
 		return false;
+=======
+	public void removeTA(TA ta) {
+		
+		DBCollection collection = database.getCollection(ta_databaseName);
+		
+		DBObject dbObject = new BasicDBObject();
+		dbObject.put("name", ta.getName());
+		
+		DBObject db_ta = collection.findOne(dbObject);
+		collection.remove(db_ta);
+		
+	}
+	
+	public void AddEventToTA(Event event, TA ta) {
+		removeTA(ta);
+		ta.addEventtoTA(event);
+		addNewTA(ta);
+>>>>>>> bc78b2169b36c12e115b9f9aab40db308d450bb2
 	}
 
 	public static void main(String[] args) {
 		
-		TADAO taDAO = new TADAO();
+//		TADAO taDAO = new TADAO();
 //		System.out.println(taDAO.getTAByName("nn"));
+<<<<<<< HEAD
+=======
 		taDAO.getAllTAs().get(0).display();
 		Event e = new MastersExtension();
 		e.setType(MastersExtension.class.getName());
@@ -262,6 +269,7 @@ public class TADAO {
 		me.setType("masters");
 		events.add(me);
 		events.add(new PhdExtension());
+>>>>>>> bc78b2169b36c12e115b9f9aab40db308d450bb2
 		
 //		TA ta = new TA();
 //		ta.setName("xxx");
@@ -291,7 +299,7 @@ public class TADAO {
 		
 		AddEventController ctrlr = new AddEventController();
 		System.out.println(ctrlr.addEventToTA("Randa", e));
-		*/
+		
 	}
 	
 }

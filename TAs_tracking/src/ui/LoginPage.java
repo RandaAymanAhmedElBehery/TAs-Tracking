@@ -89,7 +89,7 @@ public class LoginPage extends JFrame{
 					userMessages.setText(username.getText() + " Logged in successfully");
 					dispose();
 					
-					HomePage searchPage = new HomePage();
+					ViewAllTAsPage searchPage = new ViewAllTAsPage();
 				} catch (LoginErrorException e1) {
 					userMessages.setForeground(Color.RED);
 					userMessages.setText("Username and/or Password are incorrect");

@@ -9,10 +9,11 @@ import dao.TADAO;
 import model.Event;
 import model.NewTA;
 import model.TA;
+import utils.DateUtils;
 
 public class TAController {
 	
-	public void addNewTA(String name, String mobileNo, String email, String year, 
+	public void addNewTA(String name, String mobileNo, String email, String date, 
 			String title, String onVacation) throws TAAlreadyExistsException{
 		//must add newTAEvent by default
 		//set last event
@@ -21,14 +22,16 @@ public class TAController {
 		if(taDAO.getTAByName(name) != null)
 			throw new TAAlreadyExistsException("TA Already Exists");
 		
-		TA ta = new TA(name,  mobileNo,  email,  year, title,  onVacation);
+		Date hiringDate = DateUtils.stringtoDate(date);
+		System.out.println("HIRING: " + hiringDate);
+		TA ta = new TA(name,  mobileNo,  email,  hiringDate, title,  onVacation);
 		
 		Event newTA = new NewTA();
-		newTA.setDate(new Date());//TODO: to be changed
+		newTA.setDate(hiringDate);
 		newTA.setType(NewTA.class.getName());
+		
 		ta.addEventtoTA(newTA);
 		ta.setLastEvent(newTA);
-		
 		
 		taDAO.addNewTA(ta);
 		
@@ -38,5 +41,7 @@ public class TAController {
 		TADAO tadao = new TADAO();
 		return tadao.getAllTAs();
 	}
+
+	
 
 }

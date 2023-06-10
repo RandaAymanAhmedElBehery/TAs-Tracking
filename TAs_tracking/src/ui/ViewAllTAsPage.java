@@ -1,7 +1,10 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -14,15 +17,15 @@ import model.TA;
 
 public class ViewAllTAsPage extends JFrame{
 	
-	int width = 600;
-	int height = 400;
+	int width = 800;
+	int height = 500;
 	
 	int headersNum = 5;
 	
 	public ViewAllTAsPage() {
 		setSize(width, height);
 		setTitle("View All TAs Page");
-		setLocation(new Point(500, 300));
+		setLocation(new Point(200, 300));
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -60,7 +63,36 @@ public class ViewAllTAsPage extends JFrame{
 		}
 		
 		JScrollPane pane = new JScrollPane(mainPanel);
-		this.add(pane);
+		pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
+		JButton addNewTA = new JButton("Add new TA");
+		JButton filterTAs = new JButton("Filter TAs");
+		JPanel controlsPanel = new JPanel();
+		controlsPanel.add(addNewTA);
+		controlsPanel.add(filterTAs);
+		
+		this.setLayout(new BorderLayout());
+		this.add(controlsPanel, BorderLayout.NORTH);
+		this.add(pane, BorderLayout.CENTER);
+		
+		addNewTA.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new NewTAPage();
+				dispose();
+			}
+		});
+		
+		filterTAs.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new FiltersPage();
+				dispose();
+				
+			}
+		});
 	}
 
 	private Object[][] getTAsDataAsStrings(ArrayList<TA> allTAs) {
@@ -68,8 +100,8 @@ public class ViewAllTAsPage extends JFrame{
 		Object[][]allTAsData = new Object[allTAs.size()][headersNum];
 		int i = 0;
 		for(TA ta : allTAs) {
-			JButton view = new JButton("View");
-			JButton edit = new JButton("Edit");
+			JButton view = new JButton("View History");
+			JButton edit = new JButton("Add Event");
 			Object [] taData = {i+1, ta.getName(),ta.getTitle(),view ,  edit};
 			allTAsData[i] = taData;
 			i++;

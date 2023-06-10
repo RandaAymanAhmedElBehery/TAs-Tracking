@@ -9,10 +9,9 @@ import controllers.FiltersController;
 public class FiltersPage extends JFrame{
 	
 	int width = 400;
-	int height = 400;
+	int height = 300;
 	
 	FiltersController filtersController;
-
 	
 	public FiltersPage() {
 		setSize(width, height);
