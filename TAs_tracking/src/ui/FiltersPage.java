@@ -4,25 +4,32 @@ import java.awt.Point;
 
 import javax.swing.JFrame;
 
+import controllers.FiltersController;
+
 public class FiltersPage extends JFrame{
 	
 	int width = 400;
 	int height = 300;
 	
+	FiltersController filtersController;
+	
 	public FiltersPage() {
-		
 		setSize(width, height);
-		setTitle("Filters Page");
+		setTitle("Filter TA ");
 		setLocation(new Point(500, 300));
-		setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		filtersController = new FiltersController();
 		
 		addControls();
+		
+		setVisible(true);
 	}
-
+	
 	private void addControls() {
-		// TODO Auto-generated method stub
+		
+		
 		
 	}
-
 }

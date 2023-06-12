@@ -56,6 +56,22 @@ public class TA {
 		public String toString() {
 			return name;
 		}
+	
+	@Override
+	public TA clone() throws CloneNotSupportedException {
+		
+		TA clone = new TA();
+		clone.name = this.name;
+		clone.email = this.email;
+		clone.mobileNo = this.mobileNo;
+		clone.onVacation = this.onVacation;
+		clone.title = this.title;
+		clone.hiringDate = this.hiringDate;
+		clone.lastEvent = this.lastEvent;
+		clone.history = new ArrayList<Event>();
+		clone.history.addAll(this.history);
+		return clone;
+	}
 //	public int getId() {
 //		return id;
 //	}
