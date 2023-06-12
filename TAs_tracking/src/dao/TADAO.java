@@ -2,6 +2,7 @@ package dao;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -14,12 +15,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.WriteResult;
 
-import controllers.AddEventController;
-import controllers.FiltersController;
 import model.Event;
 import model.MastersExtension;
-import model.MastersRegistration;
-import model.PhdExtension;
 import model.TA;
 import utils.ConfigReader;
 
@@ -147,9 +144,23 @@ public class TADAO {
 			allTAs.add(ta);
 		}
 //		System.out.println(allTAs);
+		allTAs = sortTAsbyName(allTAs);
 		return allTAs;
 	}
 	
+	private ArrayList<TA> sortTAsbyName(ArrayList<TA> allTAs) {
+		allTAs.sort(new Comparator<TA>() {
+		    @Override
+		    public int compare(TA lhs, TA rhs) {
+		        // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+		        return (lhs.getName().compareTo(rhs.getName()) < 0) ? -1 
+		        		: (lhs.getName().compareTo(rhs.getName()) > 0) ? 1 : 0;
+		    }
+		});
+		
+		return allTAs;
+	}
+
 	public TA getTAByName(String name) {
 		TA foundTA = null;
 		DBCollection collection = database.getCollection(ta_databaseName);

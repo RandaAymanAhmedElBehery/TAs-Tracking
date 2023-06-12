@@ -9,11 +9,12 @@ public class DateUtils {
 
 	public static boolean matchDate(String date) {
 		
-		DateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
         sdf.setLenient(false);
         try {
-            sdf.parse(date);
+            System.out.println(sdf.parse(date));
         } catch (ParseException e) {
+        	e.printStackTrace();
            return false;
         } 
         return true;
