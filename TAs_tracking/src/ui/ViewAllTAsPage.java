@@ -62,8 +62,8 @@ public class ViewAllTAsPage extends JFrame{
 			mainPanel.add(p);
 		}
 		
-		JScrollPane pane = new JScrollPane(mainPanel);
-		pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane pane = new JScrollPane(mainPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
 		JButton addNewTA = new JButton("Add new TA");
 		JButton filterTAs = new JButton("Filter TAs");
