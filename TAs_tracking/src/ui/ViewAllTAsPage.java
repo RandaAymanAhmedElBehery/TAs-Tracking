@@ -14,18 +14,19 @@ import javax.swing.JScrollPane;
 
 import controllers.TAController;
 import model.TA;
+import utils.LabelsConfig;
 
 public class ViewAllTAsPage extends JFrame{
 	
-	int width = 800;
-	int height = 500;
+	int width = 1000;
+	int height = 800;
 	
 	int headersNum = 5;
 	
 	public ViewAllTAsPage() {
 		setSize(width, height);
 		setTitle("View All TAs Page");
-		setLocation(new Point(200, 300));
+		setLocation(new Point(200, 100));
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -62,11 +63,11 @@ public class ViewAllTAsPage extends JFrame{
 			mainPanel.add(p);
 		}
 		
-		JScrollPane pane = new JScrollPane(mainPanel);
-		pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane pane = new JScrollPane(mainPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		JButton addNewTA = new JButton("Add new TA");
-		JButton filterTAs = new JButton("Filter TAs");
+		JButton addNewTA = new JButton(LabelsConfig.getAddTALabel());
+		JButton filterTAs = new JButton(LabelsConfig.getFilterTAsLabel());
 		JPanel controlsPanel = new JPanel();
 		controlsPanel.add(addNewTA);
 		controlsPanel.add(filterTAs);

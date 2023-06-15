@@ -22,7 +22,6 @@ public class EventsConfigReader {
 	}
 	
 	public static Set<Entry<Object,Object>> getEventsList(){
-//		Map<String, String> eventsList = new HashMap<String, String>();
 		
 		Properties prop=new Properties();
 
@@ -60,11 +59,22 @@ public class EventsConfigReader {
 	}
 	
 	
+	public static String getIsOnVacation(boolean onVacation) {
+		if(onVacation)
+			return getEventArabicName("OnVacation");
+		else
+			return getEventArabicName("NotOnVacation");
+		
+	}
+	
+	
 	public static void main(String[] args) {
 //		System.out.println(EventsConfigReader.getEventsList());
 		for(Entry<Object, Object> e : EventsConfigReader.getEventsList()) {
 			System.out.println(e.getKey() + " : " + e.getValue());
 		}
+		
+		System.out.println(getEventArabicName("NotOnVacation"));
 	}
 	
 }

@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,6 +16,7 @@ import javax.swing.JTextField;
 
 import Exceptions.LoginErrorException;
 import controllers.LoginController;
+import utils.LabelsConfig;
 
 
 public class LoginPage extends JFrame{
@@ -42,12 +44,14 @@ public class LoginPage extends JFrame{
 
 	private void addControls() {
 		
-		JLabel usernameLabel = new JLabel("User Name");
-		usernameLabel.setBounds(100, 8, 70, 20);
+		JLabel usernameLabel = new JLabel(LabelsConfig.getNameLabel());
+		usernameLabel.setFont(new Font("Serif", Font.BOLD, 14));
+		usernameLabel.setBounds(270, 8, 70, 20);
 		JTextField username = new JTextField("basma");
 		username.setBounds(100, 27, 193, 28);
-		JLabel passwordLabel = new JLabel("Password");
-		passwordLabel.setBounds(100, 55, 70, 20);
+		JLabel passwordLabel = new JLabel(LabelsConfig.getPasswordLabel());
+		passwordLabel.setFont(new Font("Serif", Font.BOLD, 14));
+		passwordLabel.setBounds(230, 55, 70, 20);
 		JPasswordField password = new JPasswordField("basma");
 		password.setBounds(100, 75, 193, 28);
 
@@ -60,11 +64,11 @@ public class LoginPage extends JFrame{
 		mainPanel.add(passwordLabel);
 		mainPanel.add(password);
 		
-		JButton loginButton = new JButton("Login");
+		JButton loginButton = new JButton(LabelsConfig.getLoginLabel());
 		loginButton.setBounds(130, 110, 120, 25);
-		JButton signupButton = new JButton("Sign Up");
+		JButton signupButton = new JButton(LabelsConfig.getSignUpLabel());
 		signupButton.setBounds(130, 150, 120, 25);
-		JButton editProfileButton = new JButton("Edit Profile");
+		JButton editProfileButton = new JButton(LabelsConfig.getEditProfileLabel());
 		editProfileButton.setBounds(130, 190, 120, 25);
 		
 		JLabel userMessages = new JLabel();

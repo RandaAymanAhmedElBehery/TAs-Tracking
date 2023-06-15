@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import utils.EventsConfigReader;
+
 public class TA {
 	
 //	int id;
@@ -27,7 +29,7 @@ public class TA {
 		email = email2;
 		this.hiringDate = hiringDate;
 		title = title2;
-		if(onVacation2.equalsIgnoreCase("No"))
+		if(onVacation2.equalsIgnoreCase(EventsConfigReader.getIsOnVacation(false)))
 			onVacation = false;
 		else
 			onVacation = true;
