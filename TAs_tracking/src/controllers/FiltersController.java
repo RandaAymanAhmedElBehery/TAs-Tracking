@@ -30,6 +30,8 @@ public class FiltersController {
 		for (TA ta: allTAs){
 			for (Event event: ta.getHistory()){
 				if (event.getClass().getSimpleName().equals(eventName)){
+					ta.setHistory(new ArrayList<Event>());
+					ta.getHistory().add(event);
 					tasByEventName.add(ta);
 					break;
 				}

@@ -38,6 +38,28 @@ public class EventsConfigReader {
 		return prop.entrySet();
 	}
 	
+
+	public static String[] getEventsArabicList(){
+		
+		Properties prop=new Properties();
+
+		try {
+			
+			prop.load(ConfigReader.class.getResourceAsStream("/conf/events.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String arEvents[] = new String[prop.size()];
+		Object [] obj = prop.values().toArray();
+		int i=0;
+		for (Object x : obj){
+			arEvents[i++] = String.valueOf(x);
+		}
+		return arEvents ;
+	}
+	
+	
 	public static void main(String[] args) {
 //		System.out.println(EventsConfigReader.getEventsList());
 		for(Entry<Object, Object> e : EventsConfigReader.getEventsList()) {
