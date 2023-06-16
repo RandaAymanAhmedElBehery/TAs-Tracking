@@ -9,7 +9,7 @@ import model.TA;
 public class AddEventToTAPage extends JFrame{
 	
 	int width = 600;
-	int height = 800;
+	int height = 600;
 	
 	TA ta;
 	
@@ -17,7 +17,7 @@ public class AddEventToTAPage extends JFrame{
 	public AddEventToTAPage(TA ta) {
 		setSize(width, height);
 		setTitle(ta.getName());
-		setLocation(new Point(500, 200));
+		setLocation(new Point(300, 200));
 		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -28,7 +28,7 @@ public class AddEventToTAPage extends JFrame{
 	}
 
 	private void addControls() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
