@@ -58,6 +58,16 @@ public class EventsConfigReader {
 		return arEvents ;
 	}
 	
+	public static String getEventEnglishName(String event) {
+		Set<Entry<Object,Object>> allEvents = getEventsList();
+		for (Entry<Object, Object> eventObject : allEvents){
+			if (eventObject.getValue().equals(event))
+				return (String) eventObject.getKey();
+		}
+
+		return null;
+	}
+	
 	
 	public static String getIsOnVacation(boolean onVacation) {
 		if(onVacation)

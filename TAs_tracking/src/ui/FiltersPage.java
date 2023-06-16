@@ -22,13 +22,14 @@ import javax.swing.JScrollPane;
 import controllers.FiltersController;
 import model.TA;
 import utils.EventsConfigReader;
+import utils.LabelsConfig;
 import utils.TitlesReader;
 
 public class FiltersPage extends JFrame{
 	
 	int width = 1000;
 	int height = 600;
-	String [] vacationOptions = {"Yes", "No"};
+	String [] vacationOptions = {EventsConfigReader.getEventArabicName("OnVacation"), EventsConfigReader.getEventArabicName("NotOnVacation")};
 	String [] titleOptions = TitlesReader.getTitles();
 	String [] eventOptions = EventsConfigReader.getEventsArabicList();
 	
@@ -36,7 +37,7 @@ public class FiltersPage extends JFrame{
 	
 	public FiltersPage() {
 		setSize(width, height);
-		setTitle("Filter TA ");
+		setTitle(LabelsConfig.getLabel("FilterTAs"));
 		setLocation(new Point(100, 50));
 //		this.setLayout(new BorderLayout());
 
@@ -55,28 +56,28 @@ public class FiltersPage extends JFrame{
 
 //	    filtersPanel.setLayout(null);
 
-	    JLabel filterTypeLabel = new JLabel("Filter Type");
+	    JLabel filterTypeLabel = new JLabel(LabelsConfig.getLabel("filterType"));
 //		filterTypeLabel.setBounds(20, 20, 100, 25);
-	    String[] choices = { "Vacation","Event", "Title"};
+	    String[] choices = {LabelsConfig.getLabel("onVacation"),LabelsConfig.getLabel("event"),LabelsConfig.getLabel("title")};
 	    JComboBox<String> filterTypeMenu = new JComboBox<>(choices);
 	    filterTypeMenu.setSelectedItem(null);
 //	    filterTypeMenu.setBounds(90, 20, 150, 25);
 	    
-		filtersPanel.add(filterTypeLabel);
-		filtersPanel.add(filterTypeMenu);
+
 	    
-	    JLabel filterValueLabel = new JLabel("Filter Value");
+//	    JLabel filterValueLabel = new JLabel(LabelsConfig.getLabel("filterValue"));
 //	    filterValueLabel.setBounds(300, 20, 100, 25);
 	    JComboBox<String> filterValueMenu = new JComboBox<>();
 //	    filterValueMenu.setBounds(370, 20, 150, 25);
 
-	    JButton filterButton = new JButton("Filter");
+	    JButton filterButton = new JButton(LabelsConfig.getLabel("FilterTAs"));
 //	    filterButton.setBounds(600, 20, 100, 25);
 
-	    filtersPanel.add(filterValueLabel);
-		filtersPanel.add(filterValueMenu);
-		filtersPanel.add(filterButton);
-		
+//	    filtersPanel.add(filterValueLabel);
+	    filtersPanel.add(filterButton);
+	    filtersPanel.add(filterValueMenu);
+		filtersPanel.add(filterTypeMenu);
+		filtersPanel.add(filterTypeLabel);
 		
 		JPanel tasPanel = new JPanel();
 
@@ -93,11 +94,11 @@ public class FiltersPage extends JFrame{
 			public void itemStateChanged(ItemEvent arg0) {
 				
 				String options [] = null ;
-				if (filterTypeMenu.getSelectedItem().equals("Vacation"))
+				if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel("onVacation")))
 					options = vacationOptions;
-				else if (filterTypeMenu.getSelectedItem().equals("Title"))
+				else if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel("title")))
 					options = titleOptions;
-				else if (filterTypeMenu.getSelectedItem().equals("Event"))
+				else if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel("event")))
 					options = eventOptions;
 				
 				DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(options);
@@ -115,11 +116,11 @@ public class FiltersPage extends JFrame{
 				String filterValue = String.valueOf(filterValueMenu.getSelectedItem());
 				List<TA> filteredTAs = new ArrayList<TA>();
 				
-				if (filterType.equals("Vacation"))
-					filteredTAs = filtersController.filterByVacationStatus(filterValue.equals("Yes")?true:false);
-				else if (filterType.equals("Title"))
+				if (filterType.equals(LabelsConfig.getLabel("onVacation")))
+					filteredTAs = filtersController.filterByVacationStatus(filterValue);
+				else if (filterType.equals(LabelsConfig.getLabel("title")))
 					filteredTAs = filtersController.filterByTitle(filterValue);
-				else if (filterType.equals("Event"))
+				else if (filterType.equals(LabelsConfig.getLabel("event")))
 					filteredTAs = filtersController.filterByEvent(filterValue);
 				
 				tasPanel.setLayout(new GridLayout(filteredTAs.size(),1));
@@ -131,7 +132,7 @@ public class FiltersPage extends JFrame{
 				tasPanel.revalidate();
 				tasPanel.repaint();
 				if (filteredTAs.size() == 0)
-					JOptionPane.showMessageDialog(null, "No result found with the specified filters");
+					JOptionPane.showMessageDialog(null, LabelsConfig.getLabel("noResultsFoundMsg"));
 
 			}
 

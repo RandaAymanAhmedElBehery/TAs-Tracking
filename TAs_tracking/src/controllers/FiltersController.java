@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import dao.TADAO;
 import model.Event;
 import model.TA;
+import utils.EventsConfigReader;
 
 //view All TAs as list or by any filter
 public class FiltersController {
 	
-	public ArrayList<TA> filterByVacationStatus(boolean vacationStatus){
+	public ArrayList<TA> filterByVacationStatus(String vacationStatus){
 		TADAO tadao = new TADAO();
-		return tadao.getTAByVacationStatus(vacationStatus);
+		return tadao.getTAByVacationStatus(vacationStatus.equals(EventsConfigReader.getEventArabicName("OnVacation")));
 	}
 
 	public ArrayList<TA> filterByTitle(String title){
@@ -19,17 +20,20 @@ public class FiltersController {
 		return tadao.getTAByTitle(title);
 	}
 	
-	public ArrayList<TA> filterByEvent(String eventFullName){
+	public ArrayList<TA> filterByEvent(String eventArabicName){
 		
 		TADAO tadao = new TADAO();
 		ArrayList<TA> allTAs = tadao.getAllTAs();
 		ArrayList<TA> tasByEventName = new ArrayList<TA>();
-		String eventNameSplit[] = eventFullName.split("\\.");	// eventFullName ex: model.MastersExtension
-		String eventName = eventNameSplit[eventNameSplit.length-1];
+
+		String eventName = EventsConfigReader.getEventEnglishName(eventArabicName);
+		if (eventName == null)
+			return new ArrayList<>();
+		
 		
 		for (TA ta: allTAs){
 			for (Event event: ta.getHistory()){
-				if (event.getClass().getSimpleName().equals(eventName)){
+				if (event.getClass().getCanonicalName().equals(eventName)){
 					ta.setHistory(new ArrayList<Event>());
 					ta.getHistory().add(event);
 					tasByEventName.add(ta);

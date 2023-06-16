@@ -94,4 +94,9 @@ public class LabelsConfig {
 		return getConfig("editprofile");
 		
 	}
+	
+	public static String getLabel(String label) {
+		return getConfig(label);
+		
+	}
 }
