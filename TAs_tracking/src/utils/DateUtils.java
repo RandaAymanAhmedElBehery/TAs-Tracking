@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class DateUtils {
 
-	public static boolean matchDate(String date) {
+	public static boolean matchDate(String date) throws ParseException {
 		
 		DateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
         sdf.setLenient(false);
@@ -15,7 +15,7 @@ public class DateUtils {
             System.out.println(sdf.parse(date));
         } catch (ParseException e) {
         	e.printStackTrace();
-           return false;
+        	throw e;
         } 
         return true;
 		/*

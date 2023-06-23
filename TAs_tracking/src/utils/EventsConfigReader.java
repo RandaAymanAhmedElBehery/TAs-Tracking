@@ -33,6 +33,7 @@ public class EventsConfigReader {
 			e.printStackTrace();
 		}
 		
+		prop.remove("OnVacation","NotOnVacation");
 //		prop.list(System.out);
 		return prop.entrySet();
 	}
@@ -49,6 +50,8 @@ public class EventsConfigReader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		prop.entrySet().removeIf(p -> !p.toString().startsWith("model"));
+
 		String arEvents[] = new String[prop.size()];
 		Object [] obj = prop.values().toArray();
 		int i=0;

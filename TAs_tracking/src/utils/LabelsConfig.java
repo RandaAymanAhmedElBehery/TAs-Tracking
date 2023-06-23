@@ -4,6 +4,15 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class LabelsConfig {
+	
+	public static final String HIRING_DATE = "hiringDate";
+	public static final String START_DATE = "startDate";
+	public static final String END_DATE = "endDate";
+	public static final String DISCUSSION_DATE = "discussionDate";
+	public static final String ADD_EVENT = "addEvent";
+	public static final String SUCCESS = "sucessMsg";
+	public static final String ERROR = "errorMsg";
+	
 
 	private static String getConfig(String config) {
 		Properties prop=new Properties();

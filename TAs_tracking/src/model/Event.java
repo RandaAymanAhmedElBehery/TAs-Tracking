@@ -1,11 +1,17 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class Event {
 	
 	String type;
 	Date date; //start date if an event has from and to
+	
+	public Event() {
+		this.type = this.getClass().getCanonicalName();
+	} 
 	
 	@Override
 	public String toString() {
@@ -21,9 +27,19 @@ public abstract class Event {
 	public Date getDate() {
 		return date;
 	}
+	
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+	public void setDate(String date) {
+	    Date date1 = null;
+		try {
+			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		this.date = date1;
+	}
 
 }
