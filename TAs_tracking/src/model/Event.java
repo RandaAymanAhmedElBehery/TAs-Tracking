@@ -1,8 +1,8 @@
 package model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import utils.DateUtils;
 
 public abstract class Event {
 	
@@ -32,14 +32,15 @@ public abstract class Event {
 		this.date = date;
 	}
 	public void setDate(String date) {
-	    Date date1 = null;
-		try {
-			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-		this.date = date1;
+//	    Date date1 = null;
+//		try {
+//			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}  
+//		this.date = date1;
+		this.date= DateUtils.stringtoDate(date);
 	}
 
 }

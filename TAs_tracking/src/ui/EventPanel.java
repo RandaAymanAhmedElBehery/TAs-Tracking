@@ -11,6 +11,7 @@ import javax.swing.border.TitledBorder;
 
 import model.Event;
 import utils.DateUtils;
+import utils.EventUtils;
 import utils.EventsConfigReader;
 
 public class EventPanel extends JPanel{
@@ -26,7 +27,8 @@ public class EventPanel extends JPanel{
 		setVisible(true);
 		
 		this.event = e;
-		addEvent();
+		if(event != null)
+			addEvent();
 	}
 	private void addEvent() {
 		
@@ -35,7 +37,7 @@ public class EventPanel extends JPanel{
 		titledBorder.setTitleJustification(TitledBorder.RIGHT);
 		setBorder(titledBorder);
 		
-		Field[] eventFields = Event.class.getDeclaredFields();
+		Field[] eventFields = EventUtils.getEventFields(event);
 
 		for(Field field : eventFields) {
 			field.setAccessible(true);

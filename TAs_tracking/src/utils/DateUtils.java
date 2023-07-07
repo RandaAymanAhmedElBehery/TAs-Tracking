@@ -3,6 +3,7 @@ package utils;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class DateUtils {
@@ -31,18 +32,30 @@ public class DateUtils {
 	}
 	
 	public static String dateToString(Date date) {
-		String stringDate= date.getDate()+"/"+date.getMonth()+"/"+date.getYear();
+		if(date == null)
+			return "";
+		//the +1 in the month because java.util.date stores the 12 months from 0 to 11
+		int month = date.getMonth()+1;
+		String stringDate= date.getDate()+"/"+month+"/"+date.getYear();
 		return stringDate;
 	}
 	
 	public static Date stringtoDate(String date) {
 		String[] dateString = date.split("/");
-		Date d = new Date();
-		d.setDate(Integer.parseInt(dateString[0]));
-		d.setMonth(Integer.parseInt(dateString[1]));
-		d.setYear(Integer.parseInt(dateString[2]));
 		
+		//the -1 in the month because java.util.date stores the 12 months from 0 to 11
+		int day = Integer.parseInt(dateString[0]);
+		int month = Integer.parseInt(dateString[1])-1;
+		int year = Integer.parseInt(dateString[2]);
+		
+		Date d = new Date();
+		d.setDate(day);
+		d.setMonth(month);
+		d.setYear(year);
+		System.out.println(Arrays.toString(dateString));
+		System.out.println("DATE:"+ d.getDay()+".."+ d.getMonth() + " .."+d.getYear());
 		
 		return d;
+		
 	}
 }

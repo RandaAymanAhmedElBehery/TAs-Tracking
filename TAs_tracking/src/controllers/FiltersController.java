@@ -32,8 +32,9 @@ public class FiltersController {
 		
 		
 		for (TA ta: allTAs){
+			System.out.println("History"+ ta.getHistory());
 			for (Event event: ta.getHistory()){
-				if (event.getClass().getCanonicalName().equals(eventName)){
+				if (event != null && event.getClass().getCanonicalName().equals(eventName)){
 					ta.setHistory(new ArrayList<Event>());
 					ta.getHistory().add(event);
 					tasByEventName.add(ta);

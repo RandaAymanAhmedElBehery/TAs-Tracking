@@ -96,6 +96,7 @@ public class ViewAllTAsPage extends JFrame{
 		});
 	}
 
+	/*
 	private Object[][] getTAsDataAsStrings(ArrayList<TA> allTAs) {
 		
 		Object[][]allTAsData = new Object[allTAs.size()][headersNum];
@@ -109,5 +110,5 @@ public class ViewAllTAsPage extends JFrame{
 		}
 		return allTAsData;
 	}
-
+	*/
 }

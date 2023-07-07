@@ -21,6 +21,7 @@ public class LabelsConfig {
 	public static final String STATUS = "status";
 	public static final String SUCCESS = "sucessMsg";
 	public static final String ERROR = "errorMsg";
+	public static final String EDIT_TA = "editTA";
 	public static final String REASON = "reason";
 	
 
@@ -114,8 +115,14 @@ public class LabelsConfig {
 		
 	}
 	
+	
+	
 	public static String getLabel(String label) {
 		return getConfig(label);
 		
+	}
+
+	public static String getEditTALabel() {
+		return getConfig(EDIT_TA);
 	}
 }

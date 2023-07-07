@@ -44,12 +44,20 @@ public class TARowPanel extends JPanel{
 		viewTA.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.add(viewTA);
 		
+		JLabel AddEventToTA = new JLabel();
+		AddEventToTA.setText(LabelsConfig.getAddEventLabel());
+		AddEventToTA.setHorizontalAlignment(SwingConstants.RIGHT);
+		AddEventToTA.setForeground(Color.BLUE.darker());
+		AddEventToTA.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		this.add(AddEventToTA);
+		
 		JLabel editTA = new JLabel();
-		editTA.setText(LabelsConfig.getAddEventLabel());
+		editTA.setText(LabelsConfig.getEditTALabel());
 		editTA.setHorizontalAlignment(SwingConstants.RIGHT);
 		editTA.setForeground(Color.BLUE.darker());
 		editTA.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.add(editTA);
+		
 		
 		JLabel yearOfHiring = new JLabel(DateUtils.dateToString(ta.getHiringDate()));
 ////		yearOfHire.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
@@ -109,7 +117,7 @@ public class TARowPanel extends JPanel{
 			}
 		});
 		
-		editTA.addMouseListener(new MouseListener() {
+		AddEventToTA.addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -141,5 +149,39 @@ public class TARowPanel extends JPanel{
 				
 			}
 		});
+		
+		editTA.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				new EditTAPage(ta);
+				
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 	}
 }

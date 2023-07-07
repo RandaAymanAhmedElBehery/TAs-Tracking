@@ -41,7 +41,7 @@ public class TAController {
 		TADAO tadao = new TADAO();
 		return tadao.getAllTAs();
 	}
-
+		
 	public TA getTAByName(String taName) {
 		TADAO taDAO = new TADAO();
 		
@@ -51,6 +51,10 @@ public class TAController {
 	public void removeTA (String name){
 		TADAO dao = new TADAO();
 		dao.removeTA(getTAByName(name));
+	}
+	public boolean updateTA(TA ta) {
+		TADAO taDao = new TADAO();
+		return taDao.updateTA(ta, ta);
 	}
 
 }
