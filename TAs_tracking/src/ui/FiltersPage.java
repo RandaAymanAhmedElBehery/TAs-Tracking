@@ -71,9 +71,11 @@ public class FiltersPage extends JFrame{
 //	    filterValueMenu.setBounds(370, 20, 150, 25);
 
 	    JButton filterButton = new JButton(LabelsConfig.getLabel("FilterTAs"));
+	    JButton mainPageButton = new JButton(LabelsConfig.getHomePageLabel());
 //	    filterButton.setBounds(600, 20, 100, 25);
 
 //	    filtersPanel.add(filterValueLabel);
+	    filtersPanel.add(mainPageButton);
 	    filtersPanel.add(filterButton);
 	    filtersPanel.add(filterValueMenu);
 		filtersPanel.add(filterTypeMenu);
@@ -136,6 +138,16 @@ public class FiltersPage extends JFrame{
 
 			}
 
+		});
+		
+		mainPageButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new ViewAllTAsPage();
+				
+			}
 		});
 		
 	}

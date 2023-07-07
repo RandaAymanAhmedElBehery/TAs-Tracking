@@ -1,21 +1,15 @@
 package ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import javafx.geometry.HorizontalDirection;
-import model.PhdExtension;
 import model.TA;
 import ui.eventpanels.MastersDiscussionEventPanel;
 import ui.eventpanels.MastersExtensionEventPanel;

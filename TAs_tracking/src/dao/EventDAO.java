@@ -6,36 +6,42 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 import model.Event;
+import utils.EventUtils;
 
 public class EventDAO {
 	
 	public Event DBObjectToEvent(DBObject dbObject) {
 		//must check the type of event to initialize the corresponding correct type of event
 		Event event = null;
+		String eventType = null;
 		try {
-			String eventType = dbObject.get("type").toString();
-			event = (Event) Class.forName(eventType).newInstance();
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+			if(dbObject.containsField("type")) {
+				
+				eventType = dbObject.get("type").toString();
+				event = EventUtils.createEventObject(eventType);
+	
+				Field[] allFields = EventUtils.getEventFields(event);
+				int fieldsNum = allFields.length;
+		
+				int i = 0;
+				while(i < fieldsNum){
+//					System.out.println(allFields[i]);
+					Field field = allFields[i];
+					field.setAccessible(true);
+					try {
+						if(field.getType() == int.class)
+							field.setInt(event, Integer.parseInt(dbObject.get(field.getName()).toString()));
+						else 
+							field.set(event, dbObject.get(field.getName()));
+					} catch (IllegalArgumentException | IllegalAccessException e) {
+						e.printStackTrace();
+					}
+					i++;
+				}
+			}
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-
-		Field[] eventFields = Event.class.getDeclaredFields();
-		int fieldsNum = eventFields.length;
-
-		int i = 0;
-		while(i < fieldsNum){
-			Field field = eventFields[i];
-			field.setAccessible(true);
-			try {
-				if(field.getType() == int.class)
-					field.setInt(event, Integer.parseInt(dbObject.get(field.getName()).toString()));
-				else 
-					field.set(event, dbObject.get(field.getName()));
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
-			}
-			i++;
 		}
 		return event;
 	}
@@ -44,14 +50,15 @@ public class EventDAO {
 		DBObject event_dbObject = new BasicDBObject();
 		int i =0;
 		
-		Field[] eventFields = Event.class.getDeclaredFields();
-		int fieldsNum = eventFields.length;
+		Field[] allFields = EventUtils.getEventFields(event);
+		System.out.println("EEEEEEEEE: " + event.getClass().getDeclaredFields());
+		int fieldsNum = allFields.length;
 
 		while(i < fieldsNum){
 			
-			eventFields[i].setAccessible(true);
+			allFields[i].setAccessible(true);
 			try {
-				event_dbObject.put(eventFields[i].getName(), eventFields[i].get(event));
+				event_dbObject.put(allFields[i].getName(), allFields[i].get(event));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
@@ -59,9 +66,11 @@ public class EventDAO {
 			i++;
 		}
 		
-		System.out.println("Event DB Object: " + event_dbObject);
+//		System.out.println("Event DB Object: " + event_dbObject);
 		
 		return event_dbObject;
 	}
+	
+
 
 }

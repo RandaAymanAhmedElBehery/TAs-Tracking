@@ -1,0 +1,3 @@
+add the correct event attributes
+dates in add event are not parsed right
+Exception in search by event

@@ -1,7 +1,5 @@
-/Exceptions/
-/conf/
-/controllers/
 /dao/
-/model/
-/ui/
 /utils/
+/ui/
+/model/
+/controllers/

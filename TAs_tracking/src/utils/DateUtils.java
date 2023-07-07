@@ -31,6 +31,8 @@ public class DateUtils {
 	}
 	
 	public static String dateToString(Date date) {
+		if(date == null)
+			return "";
 		String stringDate= date.getDate()+"/"+date.getMonth()+"/"+date.getYear();
 		return stringDate;
 	}
