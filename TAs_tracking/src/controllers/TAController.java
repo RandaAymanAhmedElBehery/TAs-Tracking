@@ -41,7 +41,11 @@ public class TAController {
 		TADAO tadao = new TADAO();
 		return tadao.getAllTAs();
 	}
-
+		
 	
+	public boolean updateTA(TA ta) {
+		TADAO taDao = new TADAO();
+		return taDao.updateTA(ta, ta);
+	}
 
 }
