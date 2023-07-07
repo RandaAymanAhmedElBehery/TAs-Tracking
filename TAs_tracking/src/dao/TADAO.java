@@ -18,6 +18,7 @@ import com.mongodb.WriteResult;
 import model.Event;
 import model.MastersExtension;
 import model.TA;
+import model.Vacation;
 import utils.ConfigReader;
 
 public class TADAO {
@@ -110,7 +111,7 @@ public class TADAO {
 			try {
 				if(taFields[i].getName().equalsIgnoreCase("history")) {
 					List<DBObject> ta_events = new ArrayList<DBObject>();
-					for(Event e: ta.getHistory()) {
+					for(Object e: ta.getHistory()) {
 						DBObject event_dbObject = eventDao.EventToDBObject(e);
 						ta_events.add(event_dbObject);
 						//ta_dbObject.put(event_dbObject);
@@ -256,53 +257,9 @@ public class TADAO {
 
 	public static void main(String[] args) {
 		
-		TADAO taDAO = new TADAO();
-//		System.out.println(taDAO.getTAByName("nn"));
-		taDAO.getAllTAs().get(0).display();
-		Event e = new MastersExtension();
-		e.setType(MastersExtension.class.getName());
-		e.setDate(new Date());
-		taDAO.AddEventToTA(e, taDAO.getAllTAs().get(0));
-//		taDAO.AddEventToTA(new PhdExtension(), taDAO.getAllTAs().get(0));
-//		taDAO.removeTA(taDAO.getAllTAs().get(0));
-		/*
-		TA ta = new TA();
-		ta.setName("basma");
-		List<Event> events = new ArrayList<Event>();
-		MastersExtension me = new MastersExtension();
-		me.setType("masters");
-		events.add(me);
-		events.add(new PhdExtension());
+		Event e = new Vacation();
+		System.out.println(e.getClass());
 		
-//		TA ta = new TA();
-//		ta.setName("xxx");
-//		ta.setEmail("xxx@x.com");
-//		ta.setMobileNo("0123456789");
-//		ta.setYearOfHiring("2020");
-//		ta.setTitle("ta");
-//		List<Event> events = new ArrayList<Event>();
-//		MastersExtension me = new MastersExtension();
-//		me.setType("masters");
-//		events.add(me);
-//		ta.setLastEvent(me);
-//		
-//
-//		//events.add(new PhdExtension());
-//		
-//		ta.setHistory(events);
-//		
-//		TADAO dao = new TADAO();
-//		dao.getAllTAs().get(2).display();
-
-//		dao.addNewTA(ta);
-		
-		Event e = new MastersRegistration();
-		e.setType("model.MastersRegistration");
-		e.setDate(new Date());
-		
-		AddEventController ctrlr = new AddEventController();
-		System.out.println(ctrlr.addEventToTA("Randa", e));
-		*/
 	}
 	
 }

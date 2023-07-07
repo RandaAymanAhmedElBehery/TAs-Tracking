@@ -42,6 +42,15 @@ public class TAController {
 		return tadao.getAllTAs();
 	}
 
+	public TA getTAByName(String taName) {
+		TADAO taDAO = new TADAO();
+		
+		return taDAO.getTAByName(taName);
+	}
 	
+	public void removeTA (String name){
+		TADAO dao = new TADAO();
+		dao.removeTA(getTAByName(name));
+	}
 
 }

@@ -33,7 +33,7 @@ public class EventsConfigReader {
 			e.printStackTrace();
 		}
 		
-		prop.remove("OnVacation","NotOnVacation");
+		prop.entrySet().removeIf(p -> !p.toString().startsWith("model"));
 //		prop.list(System.out);
 		return prop.entrySet();
 	}

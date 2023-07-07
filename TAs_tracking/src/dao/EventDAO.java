@@ -1,6 +1,7 @@
 package dao;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -40,18 +41,26 @@ public class EventDAO {
 		return event;
 	}
 	
-	public DBObject EventToDBObject(Event event) {
+	public DBObject EventToDBObject(Object event) {
 		DBObject event_dbObject = new BasicDBObject();
 		int i =0;
 		
 		Field[] eventFields = Event.class.getDeclaredFields();
-		int fieldsNum = eventFields.length;
+		Field[] childEventFields = event.getClass().getDeclaredFields();
+
+		
+		Field[] allFields = new Field[eventFields.length + childEventFields.length];
+	    Arrays.setAll(allFields, (x -> 
+	      (x < eventFields.length ? eventFields[x] : childEventFields[x - childEventFields.length])));
+
+	    
+		int fieldsNum = allFields.length;
 
 		while(i < fieldsNum){
 			
 			eventFields[i].setAccessible(true);
 			try {
-				event_dbObject.put(eventFields[i].getName(), eventFields[i].get(event));
+				event_dbObject.put(allFields[i].getName(), allFields[i].get(event));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
 			}

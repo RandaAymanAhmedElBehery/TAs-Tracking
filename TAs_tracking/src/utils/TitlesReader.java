@@ -22,5 +22,17 @@ public class TitlesReader {
 		
 	}
 	
+	public static String getArTitle(String enTitle){
+		Properties prop=new Properties();
+
+		try {
+			prop.load(ConfigReader.class.getResourceAsStream("/conf/titles.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return prop.getProperty(enTitle);
+	}
+	
 
 }
