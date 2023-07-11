@@ -111,7 +111,7 @@ public class TADAO {
 			try {
 				if(taFields[i].getName().equalsIgnoreCase("history")) {
 					List<DBObject> ta_events = new ArrayList<DBObject>();
-					for(Object e: ta.getHistory()) {
+					for(Event e: ta.getHistory()) {
 						DBObject event_dbObject = eventDao.EventToDBObject(e);
 						ta_events.add(event_dbObject);
 						//ta_dbObject.put(event_dbObject);

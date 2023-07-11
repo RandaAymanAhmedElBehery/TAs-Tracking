@@ -76,7 +76,7 @@ public class PromotionEventPanel extends JPanel {
 							int response = JOptionPane.showConfirmDialog(null, LabelsConfig.getLabel(LabelsConfig.CONFIRM_DELETE_TA_MSG), LabelsConfig.getLabel(LabelsConfig.CONFIRM), JOptionPane.YES_NO_OPTION);
 							if (response == JOptionPane.YES_OPTION){
 								taCtrl.removeTA(taName);
-								JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));								
+								JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));
 							}
 						}
 					}

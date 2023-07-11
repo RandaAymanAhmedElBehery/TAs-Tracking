@@ -13,7 +13,6 @@ import javax.swing.JTextField;
 
 import controllers.AddEventController;
 import model.MastersRegistration;
-import model.PostGradStudiesInfo;
 import utils.DateUtils;
 import utils.LabelsConfig;
 
@@ -75,6 +74,7 @@ public class MastersRegistrationEventPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
+					System.out.println(DateUtils.matchDate(startDate.getText())+ " " + !supervisor1.getText().isEmpty());
 					if(DateUtils.matchDate(startDate.getText())&& !supervisor1.getText().isEmpty()) {
 						List<String> supervisors = new ArrayList<String>();
 						supervisors.add(supervisor1.getText());
@@ -85,10 +85,8 @@ public class MastersRegistrationEventPanel extends JPanel {
 						AddEventController ctrl = new AddEventController();
 						MastersRegistration event = new MastersRegistration();
 						event.setDate(startDate.getText());
-						PostGradStudiesInfo info = new PostGradStudiesInfo();
-						info.setTitle(thesisTitle.getText());
-						info.setSupervisors(supervisors);
-						event.setInfo(info);
+						event.setTitle(thesisTitle.getText());
+						event.setSupervisors(supervisors);
 						boolean add = ctrl.addEventToTA(taName, event);
 						if (add)
 							JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));
@@ -97,6 +95,7 @@ public class MastersRegistrationEventPanel extends JPanel {
 					}
 				}catch(Exception ex){
 					JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.ERROR));
+					ex.printStackTrace();
 				}
 				
 			}

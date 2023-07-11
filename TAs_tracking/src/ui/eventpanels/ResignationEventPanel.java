@@ -57,7 +57,7 @@ public class ResignationEventPanel extends JPanel {
 						if (response == JOptionPane.YES_OPTION){
 							TAController taCtrl = new TAController();
 							taCtrl.removeTA(taName);
-							JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));								
+							JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));
 						}
 					}
 				}catch(Exception ex){

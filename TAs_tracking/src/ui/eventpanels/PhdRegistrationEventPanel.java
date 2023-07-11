@@ -12,9 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controllers.AddEventController;
-import model.MastersRegistration;
 import model.PhdRegistration;
-import model.PostGradStudiesInfo;
 import utils.DateUtils;
 import utils.LabelsConfig;
 
@@ -86,10 +84,8 @@ public class PhdRegistrationEventPanel extends JPanel {
 						AddEventController ctrl = new AddEventController();
 						PhdRegistration event = new PhdRegistration();
 						event.setDate(startDate.getText());
-						PostGradStudiesInfo info = new PostGradStudiesInfo();
-						info.setTitle(thesisTitle.getText());
-						info.setSupervisors(supervisors);
-						event.setInfo(info);
+						event.setTitle(thesisTitle.getText());
+						event.setSupervisors(supervisors);
 						boolean add = ctrl.addEventToTA(taName, event);
 						if (add)
 							JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));

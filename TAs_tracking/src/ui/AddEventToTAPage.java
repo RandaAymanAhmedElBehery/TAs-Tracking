@@ -38,7 +38,7 @@ public class AddEventToTAPage extends JFrame{
 
 	TA ta;
 	JPanel detailsPanel = new JPanel();
-	
+		
 	//basic info  + list of event panels
 	public AddEventToTAPage(TA ta) {
 		setSize(width, height);

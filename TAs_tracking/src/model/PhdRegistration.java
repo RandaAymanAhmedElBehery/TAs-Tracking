@@ -1,14 +1,27 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PhdRegistration extends Event{
 	
-	PostGradStudiesInfo info;
-
-	public PostGradStudiesInfo getInfo() {
-		return info;
+	String title;
+	List<String> supervisors;
+	
+	public PhdRegistration() {
+		supervisors = new ArrayList<String>();
 	}
-
-	public void setInfo(PostGradStudiesInfo info) {
-		this.info = info;
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public List<String> getSupervisors() {
+		return supervisors;
+	}
+	public void setSupervisors(List<String> supervisors) {
+		this.supervisors = supervisors;
 	}
 }
