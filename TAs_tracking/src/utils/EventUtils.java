@@ -84,7 +84,7 @@ public class EventUtils {
 		System.arraycopy(eventFields, 0, allFields, 0, eventFields.length);
 	    System.arraycopy(eventInterfaceFields, 0, allFields, eventFields.length, eventInterfaceFields.length);
 	    
-	    System.out.println("TYPE: "+ event.getClass() + "   ,,   Fields: " + allFields.length);
+//	    System.out.println("TYPE: "+ event.getClass() + "   ,,   Fields: " + allFields.length);
 	    
 		return allFields;
 	}

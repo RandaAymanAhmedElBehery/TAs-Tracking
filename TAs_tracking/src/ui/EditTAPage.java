@@ -81,8 +81,8 @@ public class EditTAPage extends JFrame{
 		JButton editTA = new JButton(LabelsConfig.getEditTALabel());
 		editTA.setBounds(20, 320, 200, 25);
 		
-		JButton homePage = new JButton(LabelsConfig.getHomePageLabel());
-		homePage.setBounds(20, 360, 200, 25);
+//		JButton homePage = new JButton(LabelsConfig.getHomePageLabel());
+//		homePage.setBounds(20, 360, 200, 25);
 		
 		JLabel userMessages = new JLabel();
 		userMessages.setBounds(20, 400, 200, 25);
@@ -108,7 +108,7 @@ public class EditTAPage extends JFrame{
 		this.add(onVacation);
 		
 		this.add(editTA);
-		this.add(homePage);
+//		this.add(homePage);
 		this.add(userMessages);
 		
 		editTA.addActionListener(new ActionListener() {
@@ -128,9 +128,9 @@ public class EditTAPage extends JFrame{
 							ta.setMobileNo(mobileNo.getText());
 							ta.setEmail(email.getText());
 							System.out.println(year.getText());
-							System.out.println("Hiring date before: " + ta.getHiringDate());
+//							System.out.println("Hiring date before: " + ta.getHiringDate());
 							ta.setHiringDate(DateUtils.stringtoDate(year.getText()));
-							System.out.println("Hiring date after: " + ta.getHiringDate());
+//							System.out.println("Hiring date after: " + ta.getHiringDate());
 							ta.setTitle(titles.getSelectedItem().toString());
 							if(onVacation.getSelectedItem().toString().equalsIgnoreCase(EventsConfigReader.getIsOnVacation(false)))
 								ta.setOnVacation(false);
@@ -158,7 +158,7 @@ public class EditTAPage extends JFrame{
 				
 			}
 		});
-		
+		/*
 		homePage.addActionListener(new ActionListener() {
 			
 			@Override
@@ -168,6 +168,7 @@ public class EditTAPage extends JFrame{
 				
 			}
 		});
+		*/
 	}
 
 	
