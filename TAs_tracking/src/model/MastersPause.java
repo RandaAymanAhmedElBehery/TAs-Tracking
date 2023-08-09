@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import utils.DateUtils;
+
 public class MastersPause extends Event {
 
 	Date endDate;
@@ -17,14 +19,7 @@ public class MastersPause extends Event {
 	}
 	
 	public void setEndDate(String date) {
-	    Date date1 = null;
-		try {
-			date1 = new SimpleDateFormat("dd/MM/yyyy").parse(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-		this.endDate = date1;
+		this.endDate = DateUtils.stringtoDate(date);
 	}
 	
 }
