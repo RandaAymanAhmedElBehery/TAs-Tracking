@@ -8,14 +8,15 @@ import utils.EventsConfigReader;
 
 public class TA {
 	
-//	int id;
-	String name;
+	String name; // ta is is his/her name
 	String mobileNo;
 	String email;
 	String title;
 	Date hiringDate;
+	Date promotionDate; //date of promotion after the masters discussion
 	boolean onVacation;
-	Event lastEvent;
+	Event lastEvent; //last event in promotions
+	Event lastAcademicEvent; // like masters registration, masters discussion, ....
 	List<Event> history;
 	
 	public TA() {
@@ -129,5 +130,21 @@ public class TA {
 
 	public void setHiringDate(Date hiringDate) {
 		this.hiringDate = hiringDate;
+	}
+	
+	public Date getPromotionDate() {
+		return promotionDate;
+	}
+
+	public void setPromotionDate(Date promotionDate) {
+		this.promotionDate = promotionDate;
+	}
+
+	public Event getLastAcademicEvent() {
+		return lastAcademicEvent;
+	}
+
+	public void setLastAcademicEvent(Event lastAcademicEvent) {
+		this.lastAcademicEvent = lastAcademicEvent;
 	}
 }

@@ -1,8 +1,11 @@
 package controllers;
 
+import java.util.Date;
+
 import dao.TADAO;
 import model.Event;
 import model.TA;
+import utils.EventUtils;
 
 public class AddEventController {
 	
@@ -17,14 +20,22 @@ public class AddEventController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ta.setLastEvent(event);
+		if(event.getType().equalsIgnoreCase(EventUtils.NEW_TA)
+				|| event.getType().equalsIgnoreCase(EventUtils.PROMOTION) 
+				|| event.getType().equalsIgnoreCase(EventUtils.RESIGNATION)
+				|| event.getType().equalsIgnoreCase(EventUtils.RESUME_WORK)
+				|| event.getType().equalsIgnoreCase(EventUtils.VACATION))
+			ta.setLastEvent(event);
+		else
+			ta.setLastAcademicEvent(event);
+		
 		ta.addEventtoTA(event);
 		
 		boolean updated = dao.updateTA(ta, beforeUpdate) ;
 		return updated;
 	}
 	
-public boolean promoteTA (String taName , String title){
+public boolean promoteTA (String taName , String title, Date promotionDate){
 		
 		TADAO dao = new TADAO();
 		TA ta = dao.getTAByName(taName);
@@ -36,6 +47,8 @@ public boolean promoteTA (String taName , String title){
 			e.printStackTrace();
 		}
 		ta.setTitle(title);
+		ta.setPromotionDate(promotionDate);
+		
 		boolean updated = dao.updateTA(ta, beforeUpdate) ;
 		return updated;
 	}

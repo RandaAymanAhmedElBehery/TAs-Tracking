@@ -3,7 +3,6 @@ package dao;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import com.mongodb.BasicDBObject;
@@ -16,7 +15,6 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.WriteResult;
 
 import model.Event;
-import model.MastersExtension;
 import model.TA;
 import model.Vacation;
 import utils.ConfigReader;

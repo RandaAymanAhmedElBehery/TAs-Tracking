@@ -1,12 +1,7 @@
 package ui.eventpanels;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,8 +11,6 @@ import javax.swing.JTextField;
 
 import controllers.AddEventController;
 import controllers.TAController;
-import model.Event;
-import model.NewTA;
 import model.Promotion;
 import model.TA;
 import utils.DateUtils;
@@ -66,8 +59,9 @@ public class PromotionEventPanel extends JPanel {
 							AddEventController ctrl = new AddEventController();
 							Promotion event = new Promotion();
 							event.setDate(date.getText());
+							event.setType(Promotion.class.getName());
 							boolean add = ctrl.addEventToTA(taName, event);
-							boolean promote = ctrl.promoteTA(taName, TitlesReader.getArTitle("TA"));
+							boolean promote = ctrl.promoteTA(taName, TitlesReader.getArTitle("TA"), event.getDate());
 							if (add && promote)
 								JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));
 							else

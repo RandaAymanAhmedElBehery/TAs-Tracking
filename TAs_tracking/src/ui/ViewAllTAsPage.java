@@ -18,15 +18,15 @@ import utils.LabelsConfig;
 
 public class ViewAllTAsPage extends JFrame{
 	
-	int width = 1000;
+	int width = 1550;
 	int height = 800;
 	
-	int headersNum = 5;
+//	int headersNum = 5;
 	
 	public ViewAllTAsPage() {
 		setSize(width, height);
 		setTitle("View All TAs Page");
-		setLocation(new Point(200, 100));
+		setLocation(new Point(0, 0));
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -64,7 +64,7 @@ public class ViewAllTAsPage extends JFrame{
 		}
 		
 		JScrollPane pane = new JScrollPane(mainPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
 		JButton addNewTA = new JButton(LabelsConfig.getAddTALabel());
 		JButton filterTAs = new JButton(LabelsConfig.getFilterTAsLabel());
