@@ -59,7 +59,7 @@ public class TADAO {
 			try {
 				if(field.getType() == int.class)
 					field.setInt(ta, Integer.parseInt(dbObject.get(field.getName()).toString()));
-				else if(field.getName() != "lastEvent" && field.getName() != "history")
+				else if(field.getName() != "lastEvent" && field.getName() != "lastAcademicEvent" && field.getName() != "history")
 					field.set(ta, dbObject.get(field.getName()));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -73,6 +73,13 @@ public class TADAO {
 		if(lastEventObject != null) {
 			Event lastEvent = eventDAO.DBObjectToEvent(lastEventObject);
 			ta.setLastEvent(lastEvent);
+		}
+		
+		//setting the lastEvent
+		DBObject lastAcademicEventObject = (DBObject) dbObject.get("lastAcademicEvent");
+		if(lastAcademicEventObject != null) {
+			Event lastAcademicEvent = eventDAO.DBObjectToEvent(lastAcademicEventObject);
+			ta.setLastAcademicEvent(lastAcademicEvent);
 		}
 		
 		//setting History
@@ -118,6 +125,9 @@ public class TADAO {
 				}else if(taFields[i].getName().equalsIgnoreCase("lastEvent")) {
 					DBObject event_dbObject = eventDao.EventToDBObject((Event) taFields[i].get(ta));
 					ta_dbObject.put("lastEvent", event_dbObject);
+				}else if(taFields[i].getName().equalsIgnoreCase("lastAcademicEvent")) {
+					DBObject event_dbObject = eventDao.EventToDBObject((Event) taFields[i].get(ta));
+					ta_dbObject.put("lastAcademicEvent", event_dbObject);
 				}
 				else {
 					ta_dbObject.put(taFields[i].getName(), taFields[i].get(ta));
@@ -186,11 +196,11 @@ public class TADAO {
 		
 	}
 	
-	public void AddEventToTA(Event event, TA ta) {
-		removeTA(ta);
-		ta.addEventtoTA(event);
-		addNewTA(ta);
-	}
+//	public void AddEventToTA(Event event, TA ta) {
+//		removeTA(ta);
+//		ta.addEventtoTA(event);
+//		addNewTA(ta);
+//	}
 
 	public ArrayList<TA> getTAByVacationStatus(boolean vacationStatus) {
 		ArrayList<TA> tasByVacation = new ArrayList<TA>();
@@ -231,26 +241,33 @@ public class TADAO {
 	}
 	
 	public boolean updateTA(TA ta , TA beforeUpdate) {
-
-		DBCollection collection = database.getCollection(ta_databaseName);
-		DBObject ta_dbObject = TAToDBObject(ta);
-		DBObject beforeUpdate_dbObject = TAToDBObject(beforeUpdate);
-		DBObject query = new BasicDBObject();
-		query.put("name", beforeUpdate.getName());
 		WriteResult deleteResult = null;
-		
+		DBCollection collection = null;
+		DBObject beforeUpdate_dbObject = null;
 		try {
+//			System.out.println("Updating ...");
+			collection = database.getCollection(ta_databaseName);
+			DBObject ta_dbObject = TAToDBObject(ta);
+			beforeUpdate_dbObject = TAToDBObject(beforeUpdate);
+			DBObject query = new BasicDBObject();
+			query.put("name", beforeUpdate.getName());
+		
 			deleteResult = collection.remove(query);
+			System.out.println(deleteResult);
 			if (deleteResult.getN() == 1){
 				collection.insert(ta_dbObject);
+//				System.out.println("Updated Successfully");
 				return true;
 			}
 		}catch (Exception e){
 			if (deleteResult.getN() == 1){
 				collection.insert(beforeUpdate_dbObject);
+//				System.out.println("EXCEPTION IN UPDATE");
+				e.printStackTrace();
 				return false;
 			}
 		}
+//		System.out.println("Can't UPDATE");
 		return false;
 	}
 

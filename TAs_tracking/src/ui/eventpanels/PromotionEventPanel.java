@@ -61,7 +61,7 @@ public class PromotionEventPanel extends JPanel {
 							event.setDate(date.getText());
 							event.setType(Promotion.class.getName());
 							boolean add = ctrl.addEventToTA(taName, event);
-							boolean promote = ctrl.promoteTA(taName, TitlesReader.getArTitle("TA"), event.getDate());
+							boolean promote = ctrl.promoteTA(taName, TitlesReader.getArTitle("TA"), event);
 							if (add && promote)
 								JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));
 							else
