@@ -47,28 +47,30 @@ public class EventDAO {
 	}
 	
 	public DBObject EventToDBObject(Event event) {
-		DBObject event_dbObject = new BasicDBObject();
-		int i =0;
-		
-		Field[] allFields = EventUtils.getEventFields(event);
-		System.out.println("EEEEEEEEE: " + event.getClass().getDeclaredFields());
-		int fieldsNum = allFields.length;
-
-		while(i < fieldsNum){
+		if(event != null) {
+			DBObject event_dbObject = new BasicDBObject();
+			int i =0;
 			
-			allFields[i].setAccessible(true);
-			try {
-				event_dbObject.put(allFields[i].getName(), allFields[i].get(event));
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				e.printStackTrace();
+			Field[] allFields = EventUtils.getEventFields(event);
+			int fieldsNum = allFields.length;
+	
+			while(i < fieldsNum){
+				
+				allFields[i].setAccessible(true);
+				try {
+					event_dbObject.put(allFields[i].getName(), allFields[i].get(event));
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+				
+				i++;
 			}
 			
-			i++;
+//			System.out.println("Event DB Object: " + event_dbObject);
+			
+			return event_dbObject;
 		}
-		
-//		System.out.println("Event DB Object: " + event_dbObject);
-		
-		return event_dbObject;
+		return null;
 	}
 	
 

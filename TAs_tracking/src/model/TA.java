@@ -51,6 +51,7 @@ public class TA {
 		System.out.println(hiringDate);
 		System.out.println(onVacation);
 		System.out.println(lastEvent);
+		System.out.println(lastAcademicEvent);
 		for(Event e: history)
 			System.out.println(e);
 		System.out.println("********************************************");
@@ -71,16 +72,13 @@ public class TA {
 		clone.title = this.title;
 		clone.hiringDate = this.hiringDate;
 		clone.lastEvent = this.lastEvent;
+		clone.lastAcademicEvent = this.lastAcademicEvent;
+		clone.promotionDate = this.promotionDate;
 		clone.history = new ArrayList<Event>();
 		clone.history.addAll(this.history);
 		return clone;
 	}
-//	public int getId() {
-//		return id;
-//	}
-//	public void setId(int id) {
-//		this.id = id;
-//	}
+
 	public String getName() {
 		return name;
 	}

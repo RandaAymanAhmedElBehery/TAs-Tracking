@@ -1,9 +1,8 @@
 package controllers;
 
-import java.util.Date;
-
 import dao.TADAO;
 import model.Event;
+import model.Promotion;
 import model.TA;
 import utils.EventUtils;
 
@@ -29,13 +28,16 @@ public class AddEventController {
 		else
 			ta.setLastAcademicEvent(event);
 		
+//		System.out.println("EVENT: " + event);
+		
 		ta.addEventtoTA(event);
 		
 		boolean updated = dao.updateTA(ta, beforeUpdate) ;
+//		System.out.println("UPDATED: "  + updated);
 		return updated;
 	}
 	
-public boolean promoteTA (String taName , String title, Date promotionDate){
+	public boolean promoteTA (String taName , String title, Promotion promotion){
 		
 		TADAO dao = new TADAO();
 		TA ta = dao.getTAByName(taName);
@@ -46,9 +48,13 @@ public boolean promoteTA (String taName , String title, Date promotionDate){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		ta.setTitle(title);
-		ta.setPromotionDate(promotionDate);
 		
+		System.out.println("Promotion : " + promotion);
+		ta.setTitle(title);
+		ta.setPromotionDate(promotion.getDate());
+		
+		ta.setLastEvent(promotion);
+				
 		boolean updated = dao.updateTA(ta, beforeUpdate) ;
 		return updated;
 	}
