@@ -129,7 +129,7 @@ public class TADAO {
 			i++;
 		}
 		
-		System.out.println("TA DB Object: " + ta_dbObject);
+//		System.out.println("TA DB Object: " + ta_dbObject);
 		return ta_dbObject;
 	}
 	
@@ -207,6 +207,7 @@ public class TADAO {
 			}
 		}
 		
+		sortTAsbyName(tasByVacation);
 		return tasByVacation;
 	}
 	
@@ -225,7 +226,7 @@ public class TADAO {
 				tasByTitle.add(ta);
 			}
 		}
-		
+		sortTAsbyName(tasByTitle);
 		return tasByTitle;
 	}
 	

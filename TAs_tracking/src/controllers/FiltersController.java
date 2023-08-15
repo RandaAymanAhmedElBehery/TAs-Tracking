@@ -32,7 +32,7 @@ public class FiltersController {
 		
 		
 		for (TA ta: allTAs){
-			System.out.println("History"+ ta.getHistory());
+//			System.out.println("History"+ ta.getHistory());
 			for (Event event: ta.getHistory()){
 				if (event != null && event.getClass().getCanonicalName().equals(eventName)){
 					ta.setHistory(new ArrayList<Event>());
@@ -62,4 +62,21 @@ public ArrayList<TA> filterByLastEvent(String lastEventFullName){
 		
 		return tasByLastEventName;
 	}
+
+public ArrayList<TA> filterByLastAcademicEvent(String lastEventFullName){
+	
+	TADAO tadao = new TADAO();
+	ArrayList<TA> allTAs = tadao.getAllTAs();
+	ArrayList<TA> tasByLastEventName = new ArrayList<TA>();
+	String lastEventNameSplit[] = lastEventFullName.split("\\.");	// eventFullName ex: model.MastersExtension
+	String lastEventName = lastEventNameSplit[lastEventNameSplit.length-1];
+	
+	for (TA ta: allTAs){
+		if (ta.getLastAcademicEvent().getClass().getSimpleName().equals(lastEventName)){
+			tasByLastEventName.add(ta);
+		}
+	}
+	
+	return tasByLastEventName;
+}
 }

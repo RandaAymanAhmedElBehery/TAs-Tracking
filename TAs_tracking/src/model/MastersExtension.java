@@ -9,6 +9,7 @@ import utils.DateUtils;
 public class MastersExtension extends Event {
 	
 	Date endDate;
+	int duration;
 
 	public Date getEndDate() {
 		return endDate;
@@ -20,6 +21,14 @@ public class MastersExtension extends Event {
 	
 	public void setEndDate(String date) {
 		this.endDate = DateUtils.stringtoDate(date);
+	}
+	
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 
 }

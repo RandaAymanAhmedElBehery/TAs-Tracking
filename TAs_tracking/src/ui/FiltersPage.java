@@ -32,7 +32,9 @@ public class FiltersPage extends JFrame{
 	String [] vacationOptions = {EventsConfigReader.getEventArabicName("OnVacation"), EventsConfigReader.getEventArabicName("NotOnVacation")};
 	String [] titleOptions = TitlesReader.getTitles();
 	String [] eventOptions = EventsConfigReader.getEventsArabicList();
-	
+	String [] normalEventOptions = EventsConfigReader.getNormalEventsArabicList();
+	String [] academicEventOptions = EventsConfigReader.getAcademicEventsArabicList();
+
 	FiltersController filtersController;
 	
 	public FiltersPage() {
@@ -58,7 +60,7 @@ public class FiltersPage extends JFrame{
 
 	    JLabel filterTypeLabel = new JLabel(LabelsConfig.getLabel("filterType"));
 //		filterTypeLabel.setBounds(20, 20, 100, 25);
-	    String[] choices = {LabelsConfig.getLabel("onVacation"),LabelsConfig.getLabel("event"),LabelsConfig.getLabel("title")};
+	    String[] choices = {LabelsConfig.getLabel(LabelsConfig.ON_VACATION),LabelsConfig.getLabel(LabelsConfig.TITLE),LabelsConfig.getLabel(LabelsConfig.EVENT),LabelsConfig.getLabel(LabelsConfig.LAST_EVENT),LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT)};
 	    JComboBox<String> filterTypeMenu = new JComboBox<>(choices);
 	    filterTypeMenu.setSelectedItem(null);
 //	    filterTypeMenu.setBounds(90, 20, 150, 25);
@@ -96,13 +98,17 @@ public class FiltersPage extends JFrame{
 			public void itemStateChanged(ItemEvent arg0) {
 				
 				String options [] = null ;
-				if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel("onVacation")))
+				if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel(LabelsConfig.ON_VACATION)))
 					options = vacationOptions;
-				else if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel("title")))
+				else if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel(LabelsConfig.TITLE)))
 					options = titleOptions;
-				else if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel("event")))
+				else if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel(LabelsConfig.EVENT)))
 					options = eventOptions;
-				
+				else if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel(LabelsConfig.LAST_EVENT)))
+					options = normalEventOptions;
+				else if (filterTypeMenu.getSelectedItem().equals(LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT)))	
+					options = academicEventOptions;
+
 				DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(options);
 				filterValueMenu.setModel(model);
 
@@ -118,15 +124,20 @@ public class FiltersPage extends JFrame{
 				String filterValue = String.valueOf(filterValueMenu.getSelectedItem());
 				List<TA> filteredTAs = new ArrayList<TA>();
 				
-				if (filterType.equals(LabelsConfig.getLabel("onVacation")))
+				if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.ON_VACATION)))
 					filteredTAs = filtersController.filterByVacationStatus(filterValue);
-				else if (filterType.equals(LabelsConfig.getLabel("title")))
+				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.TITLE)))
 					filteredTAs = filtersController.filterByTitle(filterValue);
-				else if (filterType.equals(LabelsConfig.getLabel("event")))
+				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.EVENT)))
 					filteredTAs = filtersController.filterByEvent(filterValue);
+				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.LAST_EVENT)))
+					filteredTAs = filtersController.filterByLastEvent(filterValue);
+				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT)))
+					filteredTAs = filtersController.filterByLastAcademicEvent(filterValue);
 				
 				tasPanel.setLayout(new GridLayout(filteredTAs.size(),1));
 				tasPanel.removeAll();
+				
 				for(TA ta: filteredTAs) {
 					TARowPanel panel = new TARowPanel(ta);
 					tasPanel.add(panel);

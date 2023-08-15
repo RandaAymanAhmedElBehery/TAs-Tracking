@@ -23,7 +23,14 @@ public class LabelsConfig {
 	public static final String ERROR = "errorMsg";
 	public static final String EDIT_TA = "editTA";
 	public static final String REASON = "reason";
+	public static final String ON_VACATION = "onVacation";
+	public static final String EVENT = "event";
+	public static final String LAST_EVENT = "lastEvent";
+	public static final String LAST_ACADEMIC_EVENT = "lastAcademicEvent";
+	public static final String TITLE = "title";
+	public static final String DURATION = "duration";
 	
+
 
 	private static String getConfig(String config) {
 		Properties prop=new Properties();
