@@ -4,12 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.text.DateFormatter;
 
 import controllers.AddEventController;
 import model.MastersExtension;
@@ -58,9 +61,12 @@ public class MastersExtensionEventPanel extends JPanel {
 						MastersExtension event = new MastersExtension();
 						event.setDate(startDate.getText());
 						event.setDuration(Integer.parseInt(duration.getText()));
-//						LocalDate endDate = LocalDate.of(event.getDate().getYear(),event.getDate().getMonth(),event.getDate().getDay()).plusMonths(event.getDuration());
-//						event.setEndDate(Date.valueOf(endDate));
-//						System.out.println(event.getEndDate());
+
+						DateTimeFormatterBuilder formatterBuilder = new DateTimeFormatterBuilder().append(DateTimeFormatter.ofPattern("[dd/MM/yyyy]"+"[d/M/yyyy]"+"[dd/M/yyyy]"+"[d/MM/yyyy]"));
+					    DateTimeFormatter formatter = formatterBuilder.toFormatter();
+
+						LocalDate endDate = LocalDate.parse(startDate.getText(),formatter).plusMonths(event.getDuration());						
+						event.setEndDate(DateUtils.stringtoDate(String.valueOf(endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))));
 						
 						
 						boolean add = ctrl.addEventToTA(taName, event);

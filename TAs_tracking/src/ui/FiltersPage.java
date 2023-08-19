@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 
 import controllers.FiltersController;
 import model.TA;
+import ui.tarowpanel.VacationTARowPanel;
 import utils.EventsConfigReader;
 import utils.LabelsConfig;
 import utils.TitlesReader;
@@ -139,8 +140,14 @@ public class FiltersPage extends JFrame{
 				tasPanel.removeAll();
 				
 				for(TA ta: filteredTAs) {
-					TARowPanel panel = new TARowPanel(ta);
+					TARowPanel panel;
+					if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.ON_VACATION))) {
+						panel = new VacationTARowPanel(ta);
+					}else 
+						panel = new TARowPanel(ta);
 					tasPanel.add(panel);
+
+					
 				}
 				tasPanel.revalidate();
 				tasPanel.repaint();

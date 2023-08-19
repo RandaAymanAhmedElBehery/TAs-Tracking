@@ -21,7 +21,7 @@ public class TARowPanel extends JPanel{
 
 	int width = 1000;
 	int height = 100;
-	TA ta;
+	protected TA ta;
 	String topicName;
 	public TARowPanel(TA ta) {
 		
@@ -32,7 +32,7 @@ public class TARowPanel extends JPanel{
 		
 		setVisible(true);
 	}
-	private void addTAInfo() {
+	protected void addTAInfo() {
 		ta.display();
 		this.setLayout(new GridLayout());
 		this.setBorder(BorderFactory.createTitledBorder(""));
