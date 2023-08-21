@@ -1,6 +1,8 @@
 package dao;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -20,7 +22,11 @@ public class EventDAO {
 				eventType = dbObject.get("type").toString();
 				event = EventUtils.createEventObject(eventType);
 	
-				Field[] allFields = EventUtils.getEventFields(event);
+				//Field[] allFields = EventUtils.getEventFields(event);
+
+				List<Field> f = new ArrayList<Field>();
+				Field[] allFields = (Field[]) EventUtils.getEventFields(f,event.getClass()).toArray(new Field[f.size()]);
+
 				int fieldsNum = allFields.length;
 		
 				int i = 0;
@@ -51,7 +57,11 @@ public class EventDAO {
 			DBObject event_dbObject = new BasicDBObject();
 			int i =0;
 			
-			Field[] allFields = EventUtils.getEventFields(event);
+			//Field[] allFields = EventUtils.getEventFields(event);
+			
+			List<Field> f = new ArrayList<Field>();
+			Field[] allFields = (Field[]) EventUtils.getEventFields(f,event.getClass()).toArray(new Field[f.size()]);
+
 			int fieldsNum = allFields.length;
 	
 			while(i < fieldsNum){

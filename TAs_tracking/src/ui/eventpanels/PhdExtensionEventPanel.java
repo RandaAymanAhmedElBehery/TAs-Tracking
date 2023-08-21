@@ -2,6 +2,9 @@ package ui.eventpanels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -11,6 +14,7 @@ import javax.swing.JTextField;
 
 import controllers.AddEventController;
 import model.MastersExtension;
+import model.MastersPause;
 import model.PhdExtension;
 import utils.DateUtils;
 import utils.LabelsConfig;
@@ -33,18 +37,19 @@ public class PhdExtensionEventPanel extends JPanel {
 		startDate.setBounds(120,25,200, 25);
 		startDateLabel.setBounds(330,25,200, 25);
 		
-		JLabel endDateLabel = new JLabel(LabelsConfig.getLabel(LabelsConfig.END_DATE) + " (DD/MM/YYYY):");
-		JTextField endDate = new JTextField();
-		endDate.setBounds(120,65,200, 25);
-		endDateLabel.setBounds(330,65,200, 25);
+
+		JLabel durationLabel = new JLabel(LabelsConfig.getLabel(LabelsConfig.DURATION));
+		JTextField duration = new JTextField();
+		duration.setBounds(120,65,200, 25);
+		durationLabel.setBounds(330,65,200, 25);
 		
 		JButton addEventButton = new JButton(LabelsConfig.getLabel(LabelsConfig.ADD_EVENT));
 		addEventButton.setBounds(225,115,100, 25);
 		
 		this.add(startDate);
 		this.add(startDateLabel);
-		this.add(endDate);
-		this.add(endDateLabel);
+		this.add(duration);
+		this.add(durationLabel);
 		this.add(addEventButton);
 		
 		addEventButton.addActionListener(new ActionListener() {
@@ -52,11 +57,19 @@ public class PhdExtensionEventPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try{
-					if(DateUtils.matchDate(startDate.getText()) && DateUtils.matchDate(endDate.getText())) {
+					if(DateUtils.matchDate(startDate.getText())) {
 						AddEventController ctrl = new AddEventController();
 						PhdExtension event = new PhdExtension();
 						event.setDate(startDate.getText());
-						event.setEndDate(endDate.getText());
+						event.setDuration(Integer.parseInt(duration.getText()));
+
+						DateTimeFormatterBuilder formatterBuilder = new DateTimeFormatterBuilder().append(DateTimeFormatter.ofPattern("[dd/MM/yyyy]"+"[d/M/yyyy]"+"[dd/M/yyyy]"+"[d/MM/yyyy]"));
+					    DateTimeFormatter formatter = formatterBuilder.toFormatter();
+
+						LocalDate endDate = LocalDate.parse(startDate.getText(),formatter).plusMonths(event.getDuration());						
+						event.setEndDate(DateUtils.stringtoDate(String.valueOf(endDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))));
+						
+						
 						boolean add = ctrl.addEventToTA(taName, event);
 						if (add)
 							JOptionPane.showMessageDialog(null, LabelsConfig.getLabel(LabelsConfig.SUCCESS));

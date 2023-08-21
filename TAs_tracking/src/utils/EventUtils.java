@@ -1,6 +1,8 @@
 package utils;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 
 import model.Event;
 import model.MastersDiscussion;
@@ -76,17 +78,30 @@ public class EventUtils {
 		return null;
 	}
 	
-	public static Field[] getEventFields(Event event) {
-		Field[] eventInterfaceFields = Event.class.getDeclaredFields();
-		Field[] eventFields = event.getClass().getDeclaredFields();
-		
-		Field[] allFields = new Field[eventInterfaceFields.length + eventFields.length];
-		System.arraycopy(eventFields, 0, allFields, 0, eventFields.length);
-	    System.arraycopy(eventInterfaceFields, 0, allFields, eventFields.length, eventInterfaceFields.length);
-	    
-//	    System.out.println("TYPE: "+ event.getClass() + "   ,,   Fields: " + allFields.length);
-	    
-		return allFields;
+//	public static Field[] getEventFields(Event event) {
+//		Field[] eventInterfaceFields = Event.class.getDeclaredFields();
+//		Object[] endingEventFields = event.getClass().;
+//		Field[] eventFields = event.getClass().getDeclaredFields();
+//		
+//		Field[] allFields = new Field[eventInterfaceFields.length + eventFields.length];
+//		System.arraycopy(eventFields, 0, allFields, 0, eventFields.length);
+//	    System.arraycopy(eventInterfaceFields, 0, allFields, eventFields.length, eventInterfaceFields.length);
+//	    
+////	    System.out.println("TYPE: "+ event.getClass() + "   ,,   Fields: " + allFields.length);
+//	    
+//		return allFields;
+//	}
+
+	
+	public static List<Field> getEventFields(List<Field> fields, Class<?> type) {
+	    fields.addAll(Arrays.asList(type.getDeclaredFields()));
+
+	    if (type.getSuperclass() != null) {
+	    	getEventFields(fields, type.getSuperclass());
+	    }
+
+	    return fields;
 	}
+
 
 }

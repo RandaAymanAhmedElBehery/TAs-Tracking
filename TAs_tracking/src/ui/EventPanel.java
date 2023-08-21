@@ -2,7 +2,9 @@ package ui;
 
 import java.awt.Point;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -37,7 +39,11 @@ public class EventPanel extends JPanel{
 		titledBorder.setTitleJustification(TitledBorder.RIGHT);
 		setBorder(titledBorder);
 		
-		Field[] eventFields = EventUtils.getEventFields(event);
+		//Field[] eventFields = EventUtils.getEventFields(event);
+		
+		List<Field> f = new ArrayList<Field>();
+		Field[] eventFields = (Field[]) EventUtils.getEventFields(f,event.getClass()).toArray(new Field[f.size()]);
+
 
 		for(Field field : eventFields) {
 			field.setAccessible(true);

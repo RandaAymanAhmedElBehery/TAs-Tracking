@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 
 import controllers.FiltersController;
 import model.TA;
+import ui.tarowpanel.EndingAcademicEventTARowPanel;
 import ui.tarowpanel.VacationTARowPanel;
 import utils.EventsConfigReader;
 import utils.LabelsConfig;
@@ -61,7 +62,7 @@ public class FiltersPage extends JFrame{
 
 	    JLabel filterTypeLabel = new JLabel(LabelsConfig.getLabel("filterType"));
 //		filterTypeLabel.setBounds(20, 20, 100, 25);
-	    String[] choices = {LabelsConfig.getLabel(LabelsConfig.ON_VACATION),LabelsConfig.getLabel(LabelsConfig.TITLE),LabelsConfig.getLabel(LabelsConfig.EVENT),LabelsConfig.getLabel(LabelsConfig.LAST_EVENT),LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT)};
+	    String[] choices = {LabelsConfig.getLabel(LabelsConfig.ON_VACATION),LabelsConfig.getLabel(LabelsConfig.TITLE),LabelsConfig.getLabel(LabelsConfig.LAST_EVENT),LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT)};
 	    JComboBox<String> filterTypeMenu = new JComboBox<>(choices);
 	    filterTypeMenu.setSelectedItem(null);
 //	    filterTypeMenu.setBounds(90, 20, 150, 25);
@@ -129,8 +130,8 @@ public class FiltersPage extends JFrame{
 					filteredTAs = filtersController.filterByVacationStatus(filterValue);
 				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.TITLE)))
 					filteredTAs = filtersController.filterByTitle(filterValue);
-				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.EVENT)))
-					filteredTAs = filtersController.filterByEvent(filterValue);
+//				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.EVENT)))
+//					filteredTAs = filtersController.filterByEvent(filterValue);
 				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.LAST_EVENT)))
 					filteredTAs = filtersController.filterByLastEvent(filterValue);
 				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT)))
@@ -141,9 +142,12 @@ public class FiltersPage extends JFrame{
 				
 				for(TA ta: filteredTAs) {
 					TARowPanel panel;
-					if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.ON_VACATION))) {
+					if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.ON_VACATION)))
 						panel = new VacationTARowPanel(ta);
-					}else 
+					else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT))
+							&& isEndingAcademicEvent(filterValue))
+						panel = new EndingAcademicEventTARowPanel(ta);
+					else 
 						panel = new TARowPanel(ta);
 					tasPanel.add(panel);
 
@@ -170,5 +174,11 @@ public class FiltersPage extends JFrame{
 		
 	}
 
-	
+	private boolean isEndingAcademicEvent(String filterValue) {
+		String eventName = EventsConfigReader.getEventEnglishName(filterValue);
+		if (eventName.contains("Pause") || eventName.contains("Extension"))
+			return true;
+		else
+			return false;
+	}
 }

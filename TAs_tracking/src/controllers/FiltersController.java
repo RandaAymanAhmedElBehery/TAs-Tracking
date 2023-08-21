@@ -51,11 +51,10 @@ public ArrayList<TA> filterByLastEvent(String lastEventFullName){
 		TADAO tadao = new TADAO();
 		ArrayList<TA> allTAs = tadao.getAllTAs();
 		ArrayList<TA> tasByLastEventName = new ArrayList<TA>();
-		String lastEventNameSplit[] = lastEventFullName.split("\\.");	// eventFullName ex: model.MastersExtension
-		String lastEventName = lastEventNameSplit[lastEventNameSplit.length-1];
+		String eventEnName = EventsConfigReader.getEventEnglishName(lastEventFullName);
 		
 		for (TA ta: allTAs){
-			if (ta.getLastEvent().getClass().getSimpleName().equals(lastEventName)){
+			if (ta.getLastEvent().getType().equals(eventEnName)){
 				tasByLastEventName.add(ta);
 			}
 		}
@@ -68,11 +67,10 @@ public ArrayList<TA> filterByLastAcademicEvent(String lastEventFullName){
 	TADAO tadao = new TADAO();
 	ArrayList<TA> allTAs = tadao.getAllTAs();
 	ArrayList<TA> tasByLastEventName = new ArrayList<TA>();
-	String lastEventNameSplit[] = lastEventFullName.split("\\.");	// eventFullName ex: model.MastersExtension
-	String lastEventName = lastEventNameSplit[lastEventNameSplit.length-1];
-	
+	String eventEnName = EventsConfigReader.getEventEnglishName(lastEventFullName);
+
 	for (TA ta: allTAs){
-		if (ta.getLastAcademicEvent().getClass().getSimpleName().equals(lastEventName)){
+		if (ta.getLastAcademicEvent().getType().equals(eventEnName)){
 			tasByLastEventName.add(ta);
 		}
 	}
