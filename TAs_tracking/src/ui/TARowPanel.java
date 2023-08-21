@@ -33,7 +33,7 @@ public class TARowPanel extends JPanel{
 		setVisible(true);
 	}
 	protected void addTAInfo() {
-		ta.display();
+//		ta.display();
 		this.setLayout(new GridLayout());
 		this.setBorder(BorderFactory.createTitledBorder(""));
 
