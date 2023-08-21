@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
@@ -29,7 +30,7 @@ public class ViewTAHistory extends JFrame{
 	public ViewTAHistory(TA ta) {
 		setSize(width, height);
 		setTitle(ta.getName());
-		setLocation(new Point(200, 100));
+		setLocation(new Point(200, 0));
 		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -115,7 +116,13 @@ public class ViewTAHistory extends JFrame{
 			historyPanel.add(ep);
 			
 		}
-		this.add(historyPanel);
+		
+		JScrollPane pane = new JScrollPane(historyPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		this.add(pane);
+	
+		
 		
 	}
 	
