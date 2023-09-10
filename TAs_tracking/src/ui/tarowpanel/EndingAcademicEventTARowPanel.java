@@ -16,7 +16,6 @@ import model.TA;
 import ui.TARowPanel;
 import ui.ViewTAHistory;
 import utils.DateUtils;
-import utils.EventsConfigReader;
 import utils.LabelsConfig;
 
 public class EndingAcademicEventTARowPanel extends TARowPanel {
@@ -38,21 +37,15 @@ public class EndingAcademicEventTARowPanel extends TARowPanel {
 		viewTA.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.add(viewTA);
 
-		EndingEvent e = (EndingEvent) ta.getLastAcademicEvent();
+		EndingEvent e = (EndingEvent) ta.getregistrationStatus();
 		JLabel endDate = new JLabel(DateUtils.dateToString(e.getEndDate()));
 		endDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		this.add(endDate);
+		
 		JLabel startDate = new JLabel(DateUtils.dateToString(e.getDate()));
 		startDate.setHorizontalAlignment(SwingConstants.RIGHT);
 		this.add(startDate);
 
-		JLabel onVacation = new JLabel(EventsConfigReader.getIsOnVacation(ta.isOnVacation()));
-		onVacation.setHorizontalAlignment(SwingConstants.RIGHT);
-		this.add(onVacation);
-
-		JLabel taTitle = new JLabel(ta.getTitle());
-		taTitle.setHorizontalAlignment(SwingConstants.RIGHT);
-		this.add(taTitle);
 
 		JLabel taName = new JLabel(ta.getName());
 		taName.setHorizontalAlignment(SwingConstants.RIGHT);

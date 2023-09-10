@@ -27,6 +27,7 @@ public class LabelsConfig {
 	public static final String EVENT = "event";
 	public static final String LAST_EVENT = "lastEvent";
 	public static final String LAST_ACADEMIC_EVENT = "lastAcademicEvent";
+	public static final String REGISTRATION_STATUS  = "registrationStatus"; 
 	public static final String TITLE = "title";
 	public static final String DURATION = "duration";
 	

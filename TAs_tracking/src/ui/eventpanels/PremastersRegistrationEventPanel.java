@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controllers.AddEventController;
-import model.PrePhdRegistration;
 import model.PremastersRegistration;
 import utils.DateUtils;
 import utils.LabelsConfig;

@@ -2,9 +2,8 @@ package ui.tarowpanel;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,17 +12,19 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import model.RegistrationEvent;
 import model.TA;
-import model.Vacation;
 import ui.TARowPanel;
 import ui.ViewTAHistory;
 import utils.DateUtils;
 import utils.LabelsConfig;
 
-public class VacationTARowPanel extends TARowPanel {
+public class RegistrationEventTARowPanel extends TARowPanel {
 
-	public VacationTARowPanel(TA ta) {
-		super(ta,100,75);
+	public RegistrationEventTARowPanel(TA ta) {
+		super(ta);
+		this.setLocation(0, 0);
+		this.setMaximumSize(new Dimension(1000, 50));
 	}
 
 	@Override
@@ -32,34 +33,37 @@ public class VacationTARowPanel extends TARowPanel {
 		this.setLayout(new GridLayout());
 		this.setBorder(BorderFactory.createTitledBorder(""));
 
-
 		JLabel viewTA = new JLabel();
 		viewTA.setText("<html>" + LabelsConfig.getViewHistoryLabel() + "</html>");
 		viewTA.setHorizontalAlignment(SwingConstants.RIGHT);
 		viewTA.setForeground(Color.BLUE.darker());
 		viewTA.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		this.add(viewTA);
-
-		if (ta.isOnVacation()) {
-			Vacation v = (Vacation) ta.getLastEvent();
 		
-			JLabel onVacation = new JLabel(v.getVacationType());
-			onVacation.setHorizontalAlignment(SwingConstants.RIGHT);
-			this.add(onVacation);
+		RegistrationEvent e = (RegistrationEvent) ta.getLastAcademicEvent();
 			
-			JLabel endDate = new JLabel(DateUtils.dateToString(v.getEndDate()));
-			endDate.setHorizontalAlignment(SwingConstants.RIGHT);
-			this.add(endDate);
-			
-			JLabel startDate = new JLabel(DateUtils.dateToString(v.getDate()));
-			startDate.setHorizontalAlignment(SwingConstants.RIGHT);
-			this.add(startDate);
+		JLabel title = new JLabel("<html><body><p style = \"word-wrap: normal; width:"+this.getWidth()/5+" \">"+e.getTitle()+"</p></body></html>");
+		title.setHorizontalAlignment(SwingConstants.RIGHT);
+		title.setAutoscrolls(true);
+		title.setVerticalAlignment(SwingConstants.CENTER);
+		this.add(title);
+				
+
+		StringBuilder supervisorsNames = new StringBuilder("");
+		for (String s: e.getSupervisors()) {
+			supervisorsNames.append(s);
+			supervisorsNames.append(",");
 		}
-
-		JLabel taTitle = new JLabel(ta.getTitle());
-		taTitle.setHorizontalAlignment(SwingConstants.RIGHT);
-		this.add(taTitle);
-
+		supervisorsNames.deleteCharAt(supervisorsNames.length()-1);
+		String names = new String(supervisorsNames);
+		JLabel supervisors = new JLabel(names);
+		supervisors.setHorizontalAlignment(SwingConstants.RIGHT);
+		this.add(supervisors);
+		
+		JLabel startDate = new JLabel(DateUtils.dateToString(e.getDate()));
+		startDate.setHorizontalAlignment(SwingConstants.RIGHT);
+		this.add(startDate);
+		
 		JLabel taName = new JLabel(ta.getName());
 		taName.setHorizontalAlignment(SwingConstants.RIGHT);
 		taName.setFont(new Font("Serif", Font.BOLD, 14));

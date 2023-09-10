@@ -3,7 +3,6 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
 
 import controllers.FiltersController;
 import model.TA;
@@ -31,7 +32,7 @@ import utils.EventsConfigReader;
 import utils.LabelsConfig;
 import utils.TitlesReader;
 
-public class FiltersPage extends JFrame{
+public class FiltersPageCopy extends JFrame{
 	
 	int width = 1550;
 	int height = 800;
@@ -43,7 +44,7 @@ public class FiltersPage extends JFrame{
 
 	FiltersController filtersController;
 	
-	public FiltersPage() {
+	public FiltersPageCopy() {
 		setSize(width, height);
 		setTitle(LabelsConfig.getLabel("FilterTAs"));
 		setLocation(new Point(0, 0));
@@ -129,14 +130,33 @@ public class FiltersPage extends JFrame{
 				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT)))
 					filteredTAs = filtersController.filterByLastAcademicEvent(filterValue);
 				
-				tasPanel.setLayout(new GridLayout(filteredTAs.size(),1));
-//				GridBagLayout layout = new GridBagLayout();
-//				GridBagConstraints constraints = new GridBagConstraints();
-//				int x = 0 , y = 0;
-//				tasPanel.setLayout(new BoxLayout(tasPanel, BoxLayout.PAGE_AXIS));
-//				tasPanel.setLayout(layout);
+//				tasPanel.setLayout(new GridLayout(filteredTAs.size(),1));
+			/*
+				GridBagLayout layout = new GridBagLayout();
+				GridBagConstraints constraints = new GridBagConstraints();
+				int x = 0 , y = 0;
+*/
+				
+				
+				//				tasPanel.setLayout(new BoxLayout(tasPanel, BoxLayout.PAGE_AXIS));
+				//tasPanel.setLayout(layout);
 
 				tasPanel.removeAll();
+				
+				JTable table = new JTable(filteredTAs.size(), 1); 
+				
+				
+				
+				String data[][]={ {"101","Amit","670000"},    
+                        {"102","Jai","780000"},    
+                        {"101","Sachin","700000"}};    
+			    String column[]={"ID","NAME","SALARY"};         
+			    JTable jt=new JTable(data,column);    
+			    jt.setBounds(30,40,200,300);          
+			    JScrollPane sp=new JScrollPane(jt);    
+			    
+				
+				
 				
 				for(TA ta: filteredTAs) {
 					TARowPanel panel;
@@ -150,14 +170,26 @@ public class FiltersPage extends JFrame{
 					else 
 						panel = new TARowPanel(ta);
 //					constraints.gridy = y++;
+//					constraints.gridx=0;
+//					constraints.weightx=1;
+////					constraints.weighty = 1;
 //					constraints.fill = GridBagConstraints.HORIZONTAL;
+//					constraints.anchor = GridBagConstraints.NORTH;
+//					
 					
-//					System.out.println(constraints.gridx);
+					
 //					tasPanel.add(panel,constraints);
+//					tasPanel.add(panel);
+					
+					
+				    
+	    
+	    
+					table.add(panel);
 
-					tasPanel.add(panel);
 					
 				}
+				tasPanel.add(sp);
 				tasPanel.revalidate();
 				tasPanel.repaint();
 				if (filteredTAs.size() == 0)
@@ -194,4 +226,5 @@ public class FiltersPage extends JFrame{
 		else
 			return false;
 	}
+
 }

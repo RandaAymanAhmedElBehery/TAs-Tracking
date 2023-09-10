@@ -17,6 +17,7 @@ public class TA {
 	boolean onVacation;
 	Event lastEvent; //last event in promotions
 	Event lastAcademicEvent; // like masters registration, masters discussion, ....
+	Event registrationStatus; // last academic event except pause and extension events
 	List<Event> history;
 	
 	public TA() {
@@ -52,6 +53,7 @@ public class TA {
 		System.out.println(onVacation);
 		System.out.println(lastEvent);
 		System.out.println(lastAcademicEvent);
+		System.out.println(registrationStatus);
 		for(Event e: history)
 			System.out.println(e);
 		System.out.println("********************************************");
@@ -73,6 +75,7 @@ public class TA {
 		clone.hiringDate = this.hiringDate;
 		clone.lastEvent = this.lastEvent;
 		clone.lastAcademicEvent = this.lastAcademicEvent;
+		clone.registrationStatus = this.registrationStatus;
 		clone.promotionDate = this.promotionDate;
 		clone.history = new ArrayList<Event>();
 		clone.history.addAll(this.history);
@@ -145,4 +148,13 @@ public class TA {
 	public void setLastAcademicEvent(Event lastAcademicEvent) {
 		this.lastAcademicEvent = lastAcademicEvent;
 	}
+
+	public Event getregistrationStatus() {
+		return registrationStatus;
+	}
+
+	public void setregistrationStatus(Event registrationStatus) {
+		this.registrationStatus = registrationStatus;
+	}
+	
 }

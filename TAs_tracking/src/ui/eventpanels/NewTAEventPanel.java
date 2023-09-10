@@ -1,11 +1,7 @@
 package ui.eventpanels;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controllers.AddEventController;
-import model.Event;
 import model.NewTA;
 import utils.DateUtils;
 import utils.LabelsConfig;

@@ -7,21 +7,20 @@ import model.Event;
 import model.TA;
 import utils.EventsConfigReader;
 
-//view All TAs as list or by any filter
 public class FiltersController {
-	
-	public ArrayList<TA> filterByVacationStatus(String vacationStatus){
+
+	public ArrayList<TA> filterByVacationStatus(String vacationStatus) {
 		TADAO tadao = new TADAO();
 		return tadao.getTAByVacationStatus(vacationStatus.equals(EventsConfigReader.getEventArabicName("OnVacation")));
 	}
 
-	public ArrayList<TA> filterByTitle(String title){
+	public ArrayList<TA> filterByTitle(String title) {
 		TADAO tadao = new TADAO();
 		return tadao.getTAByTitle(title);
 	}
-	
-	public ArrayList<TA> filterByEvent(String eventArabicName){
-		
+
+	public ArrayList<TA> filterByEvent(String eventArabicName) {
+
 		TADAO tadao = new TADAO();
 		ArrayList<TA> allTAs = tadao.getAllTAs();
 		ArrayList<TA> tasByEventName = new ArrayList<TA>();
@@ -29,12 +28,10 @@ public class FiltersController {
 		String eventName = EventsConfigReader.getEventEnglishName(eventArabicName);
 		if (eventName == null)
 			return new ArrayList<>();
-		
-		
-		for (TA ta: allTAs){
-//			System.out.println("History"+ ta.getHistory());
-			for (Event event: ta.getHistory()){
-				if (event != null && event.getClass().getCanonicalName().equals(eventName)){
+
+		for (TA ta : allTAs) {
+			for (Event event : ta.getHistory()) {
+				if (event != null && event.getClass().getCanonicalName().equals(eventName)) {
 					ta.setHistory(new ArrayList<Event>());
 					ta.getHistory().add(event);
 					tasByEventName.add(ta);
@@ -42,39 +39,55 @@ public class FiltersController {
 				}
 			}
 		}
-		
+
 		return tasByEventName;
 	}
-	
-public ArrayList<TA> filterByLastEvent(String lastEventFullName){
-		
+
+	public ArrayList<TA> filterByLastEvent(String lastEventFullName) {
+
 		TADAO tadao = new TADAO();
 		ArrayList<TA> allTAs = tadao.getAllTAs();
 		ArrayList<TA> tasByLastEventName = new ArrayList<TA>();
 		String eventEnName = EventsConfigReader.getEventEnglishName(lastEventFullName);
-		
-		for (TA ta: allTAs){
-			if (ta.getLastEvent().getType().equals(eventEnName)){
+
+		for (TA ta : allTAs) {
+			if (ta.getLastEvent().getType().equals(eventEnName)) {
 				tasByLastEventName.add(ta);
 			}
 		}
-		
+
 		return tasByLastEventName;
 	}
 
-public ArrayList<TA> filterByLastAcademicEvent(String lastEventFullName){
-	
-	TADAO tadao = new TADAO();
-	ArrayList<TA> allTAs = tadao.getAllTAs();
-	ArrayList<TA> tasByLastEventName = new ArrayList<TA>();
-	String eventEnName = EventsConfigReader.getEventEnglishName(lastEventFullName);
+	public ArrayList<TA> filterByLastAcademicEvent(String lastEventFullName) {
 
-	for (TA ta: allTAs){
-		if (ta.getLastAcademicEvent().getType().equals(eventEnName)){
-			tasByLastEventName.add(ta);
+		TADAO tadao = new TADAO();
+		ArrayList<TA> allTAs = tadao.getAllTAs();
+		ArrayList<TA> tasByLastEventName = new ArrayList<TA>();
+		String eventEnName = EventsConfigReader.getEventEnglishName(lastEventFullName);
+
+		for (TA ta : allTAs) {
+			if (ta.getLastAcademicEvent()!=null && ta.getLastAcademicEvent().getType().equals(eventEnName)) {
+				tasByLastEventName.add(ta);
+			}
 		}
+
+		return tasByLastEventName;
 	}
 	
-	return tasByLastEventName;
-}
+	public ArrayList<TA> filterByregistrationStatus(String lastEventFullName) {
+
+		TADAO tadao = new TADAO();
+		ArrayList<TA> allTAs = tadao.getAllTAs();
+		ArrayList<TA> tasByLastEventName = new ArrayList<TA>();
+		String eventEnName = EventsConfigReader.getEventEnglishName(lastEventFullName);
+
+		for (TA ta : allTAs) {
+			if (ta.getregistrationStatus()!=null && ta.getregistrationStatus().getType().equals(eventEnName)) {
+				tasByLastEventName.add(ta);
+			}
+		}
+
+		return tasByLastEventName;
+	}
 }

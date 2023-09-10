@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controllers.AddEventController;
-import model.MastersExtension;
-import model.MastersPause;
 import model.PhdExtension;
 import utils.DateUtils;
 import utils.LabelsConfig;

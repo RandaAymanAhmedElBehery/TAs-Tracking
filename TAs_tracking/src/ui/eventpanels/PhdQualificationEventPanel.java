@@ -11,7 +11,6 @@ import javax.swing.JTextField;
 
 import controllers.AddEventController;
 import model.PhdQualification;
-import model.PrePhdRegistration;
 import utils.DateUtils;
 import utils.LabelsConfig;
 

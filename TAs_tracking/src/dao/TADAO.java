@@ -59,7 +59,7 @@ public class TADAO {
 			try {
 				if(field.getType() == int.class)
 					field.setInt(ta, Integer.parseInt(dbObject.get(field.getName()).toString()));
-				else if(field.getName() != "lastEvent" && field.getName() != "lastAcademicEvent" && field.getName() != "history")
+				else if(field.getName() != "lastEvent" && field.getName() != "lastAcademicEvent" && field.getName() != "registrationStatus" && field.getName() != "history")
 					field.set(ta, dbObject.get(field.getName()));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
@@ -82,6 +82,11 @@ public class TADAO {
 			ta.setLastAcademicEvent(lastAcademicEvent);
 		}
 		
+		DBObject registrationStatusObject = (DBObject) dbObject.get("registrationStatus");
+		if(registrationStatusObject != null) {
+			Event registrationStatus = eventDAO.DBObjectToEvent(registrationStatusObject);
+			ta.setregistrationStatus(registrationStatus);
+		}
 		//setting History
 		ArrayList<DBObject> historyDB = new ArrayList<DBObject>();
 		historyDB = (ArrayList<DBObject>) dbObject.get("history");
@@ -128,6 +133,9 @@ public class TADAO {
 				}else if(taFields[i].getName().equalsIgnoreCase("lastAcademicEvent")) {
 					DBObject event_dbObject = eventDao.EventToDBObject((Event) taFields[i].get(ta));
 					ta_dbObject.put("lastAcademicEvent", event_dbObject);
+				}else if(taFields[i].getName().equalsIgnoreCase("registrationStatus")) {
+					DBObject event_dbObject = eventDao.EventToDBObject((Event) taFields[i].get(ta));
+					ta_dbObject.put("registrationStatus", event_dbObject);
 				}
 				else {
 					ta_dbObject.put(taFields[i].getName(), taFields[i].get(ta));

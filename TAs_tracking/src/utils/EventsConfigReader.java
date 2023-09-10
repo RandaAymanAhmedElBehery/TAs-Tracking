@@ -103,6 +103,27 @@ public class EventsConfigReader {
 		return arEvents;
 	}
 	
+	public static String[] getRegistrationStatusEventsList() {
+
+		Properties prop = new Properties();
+
+		try {
+
+			prop.load(ConfigReader.class.getResourceAsStream("/conf/registrationStatusEvents.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String arEvents[] = new String[prop.size()];
+		Object[] obj = prop.values().toArray();
+		int i = 0;
+		for (Object x : obj) {
+			arEvents[i++] = String.valueOf(x);
+		}
+		return arEvents;
+	}
+	
 	public static String getEventEnglishName(String event) {
 		Set<Entry<Object,Object>> allEvents = getEventsList();
 		for (Entry<Object, Object> eventObject : allEvents){

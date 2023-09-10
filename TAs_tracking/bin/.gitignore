@@ -1,6 +1,6 @@
-/dao/
 /controllers/
 /ui/
+/model/
+/dao/
 /conf/
 /utils/
-/model/

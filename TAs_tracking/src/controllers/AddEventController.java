@@ -25,15 +25,14 @@ public class AddEventController {
 				|| event.getType().equalsIgnoreCase(EventUtils.RESUME_WORK)
 				|| event.getType().equalsIgnoreCase(EventUtils.VACATION))
 			ta.setLastEvent(event);
+		else if (event.getType().contains("Pause") || event.getType().contains("Extension"))
+			ta.setregistrationStatus(event);
 		else
 			ta.setLastAcademicEvent(event);
-		
-//		System.out.println("EVENT: " + event);
-		
+				
 		ta.addEventtoTA(event);
 		
 		boolean updated = dao.updateTA(ta, beforeUpdate) ;
-//		System.out.println("UPDATED: "  + updated);
 		return updated;
 	}
 	

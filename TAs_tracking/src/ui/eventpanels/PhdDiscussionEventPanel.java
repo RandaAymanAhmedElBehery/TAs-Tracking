@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import controllers.AddEventController;
-import model.MastersDiscussion;
 import model.PhdDiscussion;
 import utils.DateUtils;
 import utils.LabelsConfig;
