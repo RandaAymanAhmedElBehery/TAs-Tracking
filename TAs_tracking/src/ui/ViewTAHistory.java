@@ -21,7 +21,7 @@ import utils.LabelsConfig;
 
 public class ViewTAHistory extends JFrame{
 	
-	int width = 300;
+	int width = 800;
 	int height = 800;
 	
 	TA ta;
@@ -47,39 +47,45 @@ public class ViewTAHistory extends JFrame{
 		JPanel basicInfoPanel = new JPanel();
 		
 		JLabel tanameLabel = new JLabel(LabelsConfig.getNameLabel());
-		tanameLabel.setBounds(200, 5, 70, 25);
+		tanameLabel.setBounds(700, 5, 70, 25);
 		JTextField taname = new JTextField(ta.getName());
-		taname.setBounds(20, 30, 200, 25);
+		taname.setHorizontalAlignment(JTextField.RIGHT);
+		taname.setBounds(520, 30, 200, 25);
 		taname.setEditable(false);
 		
 		JLabel mobileNoLabel = new JLabel(LabelsConfig.getMobileLabel());
-		mobileNoLabel.setBounds(190, 55, 70, 25);
+		mobileNoLabel.setBounds(690, 55, 70, 25);
 		JTextField mobileNo = new JTextField(ta.getMobileNo());
-		mobileNo.setBounds(20, 80, 200, 25);
+//		mobileNo.setHorizontalAlignment(JTextField.RIGHT);
+		mobileNo.setBounds(520, 80, 200, 25);
 		mobileNo.setEditable(false);
 		
 		JLabel emailLabel = new JLabel(LabelsConfig.getEmailLabel());
-		emailLabel.setBounds(150, 105, 200, 25);
+		emailLabel.setBounds(650, 105, 200, 25);
 		JTextField email = new JTextField(ta.getEmail());
-		email.setBounds(20, 130, 200, 25);
+//		email.setHorizontalAlignment(JTextField.RIGHT);
+		email.setBounds(520, 130, 200, 25);
 		email.setEditable(false);
 		
 		JLabel yearLabel = new JLabel(LabelsConfig.getHiringDateLabel());
-		yearLabel.setBounds(170, 155, 200, 25);
+		yearLabel.setBounds(670, 155, 200, 25);
 		JTextField year = new JTextField(DateUtils.dateToString(ta.getHiringDate()));
-		year.setBounds(20, 180, 200, 25);
+//		year.setHorizontalAlignment(JTextField.RIGHT);
+		year.setBounds(520, 180, 200, 25);
 		year.setEditable(false);
 		
 		JLabel titleLabel = new JLabel(LabelsConfig.getTitleLabel());
-		titleLabel.setBounds(160, 205, 200, 25);
+		titleLabel.setBounds(660, 205, 200, 25);
 		JTextField title = new JTextField(ta.getTitle());
-		title.setBounds(20, 230, 200, 25);
+		title.setHorizontalAlignment(JTextField.RIGHT);
+		title.setBounds(520, 230, 200, 25);
 		title.setEditable(false);
 		
 		JLabel onVacationLabel = new JLabel(LabelsConfig.getOnVacationLabel());
-		onVacationLabel.setBounds(180, 255, 200, 25);
+		onVacationLabel.setBounds(680, 255, 200, 25);
 		JTextField onVacation = new JTextField(EventsConfigReader.getIsOnVacation(ta.isOnVacation()));
-		onVacation.setBounds(20, 280, 200, 25);
+		onVacation.setHorizontalAlignment(JTextField.RIGHT);
+		onVacation.setBounds(520, 280, 200, 25);
 		onVacation.setEditable(false);
 		basicInfoPanel.setLayout(null);
 		
