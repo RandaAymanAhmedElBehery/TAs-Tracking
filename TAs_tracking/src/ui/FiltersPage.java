@@ -1,6 +1,9 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -21,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import controllers.FiltersController;
 import model.TA;
@@ -129,7 +133,7 @@ public class FiltersPage extends JFrame{
 				else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT)))
 					filteredTAs = filtersController.filterByLastAcademicEvent(filterValue);
 				
-				tasPanel.setLayout(new GridLayout(filteredTAs.size(),1));
+				tasPanel.setLayout(new GridLayout(filteredTAs.size()+1,1));
 //				GridBagLayout layout = new GridBagLayout();
 //				GridBagConstraints constraints = new GridBagConstraints();
 //				int x = 0 , y = 0;
@@ -137,7 +141,8 @@ public class FiltersPage extends JFrame{
 //				tasPanel.setLayout(layout);
 
 				tasPanel.removeAll();
-				
+				if (filteredTAs.size() != 0)
+					addTableHeader(tasPanel,filterType, filterValue);
 				for(TA ta: filteredTAs) {
 					TARowPanel panel;
 					if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.ON_VACATION)))
@@ -179,19 +184,125 @@ public class FiltersPage extends JFrame{
 		
 	}
 
-	private boolean isEndingAcademicEvent(String filterValue) {
+	private boolean isRegistrationEvent(String filterValue) {
 		String eventName = EventsConfigReader.getEventEnglishName(filterValue);
-		if (eventName.contains("Pause") || eventName.contains("Extension"))
+		if (eventName.equals("model.MastersRegistration")||eventName.equals("model.PhdRegistration"))
 			return true;
 		else
 			return false;
 	}
 	
-	private boolean isRegistrationEvent(String filterValue) {
-		String eventName = EventsConfigReader.getEventEnglishName(filterValue);
-		if (eventName.contains("Registration"))
-			return true;
-		else
-			return false;
+	private void addTableHeader (JPanel tasPanel, String filterType , String filterValue) {
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout());
+		
+		if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.ON_VACATION))) {
+			
+			JLabel l1 = new JLabel(" ");
+			l1.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l1);
+			
+			if (filterValue.equals(EventsConfigReader.getEventArabicName("OnVacation")))
+			{
+				JLabel l2 = new JLabel(LabelsConfig.getLabel(LabelsConfig.REASON));
+				l2.setHorizontalAlignment(SwingConstants.RIGHT);
+				panel.add(l2);
+				
+				JLabel l3 = new JLabel(LabelsConfig.getLabel(LabelsConfig.END_DATE));
+				l3.setHorizontalAlignment(SwingConstants.RIGHT);
+				panel.add(l3);
+				
+				JLabel l4 = new JLabel(LabelsConfig.getLabel(LabelsConfig.START_DATE));
+				l4.setHorizontalAlignment(SwingConstants.RIGHT);
+				panel.add(l4);
+			}
+			
+			JLabel l5 = new JLabel(LabelsConfig.getLabel(LabelsConfig.TITLE));
+			l5.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l5);
+			
+			JLabel l6 = new JLabel(LabelsConfig.getLabel(LabelsConfig.NAME));
+			l6.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l6);
+		
+		}
+		else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.REGISTRATION_STATUS))) {
+
+			JLabel l1 = new JLabel(" ");
+			l1.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l1);
+			
+			JLabel l2 = new JLabel(LabelsConfig.getLabel(LabelsConfig.END_DATE));
+			l2.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l2);
+			
+			JLabel l3 = new JLabel(LabelsConfig.getLabel(LabelsConfig.START_DATE));
+			l3.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l3);
+			
+			JLabel l4 = new JLabel(LabelsConfig.getLabel(LabelsConfig.NAME));
+			l4.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l4);
+		}
+		else if (filterType.equals(LabelsConfig.getLabel(LabelsConfig.LAST_ACADEMIC_EVENT))
+				&& isRegistrationEvent(filterValue)) {
+
+			JLabel l1 = new JLabel(" ");
+			l1.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l1);
+			
+			JLabel l2 = new JLabel(LabelsConfig.getLabel(LabelsConfig.THESIS_TITLE));
+			l2.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l2);
+			
+			JLabel l3 = new JLabel(LabelsConfig.getLabel(LabelsConfig.SUPERVISORS));
+			l3.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l3);
+			
+			JLabel l4 = new JLabel(LabelsConfig.getLabel(LabelsConfig.REGISTRATION_DATE));
+			l4.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l4);
+			
+			JLabel l5 = new JLabel(LabelsConfig.getLabel(LabelsConfig.NAME));
+			l5.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l5);
+
+		}
+		else {
+
+			JLabel l1 = new JLabel(" ");
+			l1.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l1);
+			
+			JLabel l2 = new JLabel(" ");
+			l2.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l2);
+			
+			JLabel l3 = new JLabel(" ");
+			l3.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l3);
+			
+			JLabel l4 = new JLabel(LabelsConfig.getLabel(LabelsConfig.HIRING_DATE));
+			l4.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l4);
+			
+			JLabel l5 = new JLabel(LabelsConfig.getLabel(LabelsConfig.ON_VACATION));
+			l5.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l5);
+			
+			JLabel l6 = new JLabel(LabelsConfig.getLabel(LabelsConfig.TITLE));
+			l6.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l6);
+			
+			JLabel l7 = new JLabel(LabelsConfig.getLabel(LabelsConfig.NAME));
+			l7.setHorizontalAlignment(SwingConstants.RIGHT);
+			panel.add(l7);
+
+		}
+	
+		 
+		 tasPanel.add(panel);
+	
 	}
 }

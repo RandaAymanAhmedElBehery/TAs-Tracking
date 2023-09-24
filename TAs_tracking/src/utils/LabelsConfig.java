@@ -5,6 +5,7 @@ import java.util.Properties;
 
 public class LabelsConfig {
 	
+	public static final String NAME = "name";
 	public static final String DATE = "date";
 	public static final String HIRING_DATE = "hiringDate";
 	public static final String START_DATE = "startDate";
@@ -30,7 +31,7 @@ public class LabelsConfig {
 	public static final String REGISTRATION_STATUS  = "registrationStatus"; 
 	public static final String TITLE = "title";
 	public static final String DURATION = "duration";
-	
+	public static final String SUPERVISORS = "supervisors";
 
 
 	private static String getConfig(String config) {

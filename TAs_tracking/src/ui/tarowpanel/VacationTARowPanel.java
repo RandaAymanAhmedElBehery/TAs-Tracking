@@ -3,8 +3,6 @@ package ui.tarowpanel;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+import model.Event;
 import model.TA;
 import model.Vacation;
 import ui.TARowPanel;
@@ -23,7 +22,7 @@ import utils.LabelsConfig;
 public class VacationTARowPanel extends TARowPanel {
 
 	public VacationTARowPanel(TA ta) {
-		super(ta,100,75);
+		super(ta,1000,75);
 	}
 
 	@Override
@@ -32,6 +31,7 @@ public class VacationTARowPanel extends TARowPanel {
 		this.setLayout(new GridLayout());
 		this.setBorder(BorderFactory.createTitledBorder(""));
 
+		int numItems = 3;
 
 		JLabel viewTA = new JLabel();
 		viewTA.setText("<html>" + LabelsConfig.getViewHistoryLabel() + "</html>");
@@ -41,9 +41,18 @@ public class VacationTARowPanel extends TARowPanel {
 		this.add(viewTA);
 
 		if (ta.isOnVacation()) {
-			Vacation v = (Vacation) ta.getLastEvent();
+			numItems = 6;
+			
+			Event vacationEvent = null;
+			for(int i=ta.getHistory().size()-1; i>=0; i--) {
+				if (ta.getHistory().get(i).getType().equals("model.Vacation")) {
+					vacationEvent = ta.getHistory().get(i);
+					break;
+				}
+			}
+			Vacation v = (Vacation) vacationEvent;
 		
-			JLabel onVacation = new JLabel(v.getVacationType());
+			JLabel onVacation = new JLabel("<html><body><p style = \"word-wrap: normal; width:"+this.getWidth()/numItems+" \">"+v.getVacationType()+"</p></body></html>");
 			onVacation.setHorizontalAlignment(SwingConstants.RIGHT);
 			this.add(onVacation);
 			

@@ -56,7 +56,7 @@ public class RegistrationEventTARowPanel extends TARowPanel {
 		}
 		supervisorsNames.deleteCharAt(supervisorsNames.length()-1);
 		String names = new String(supervisorsNames);
-		JLabel supervisors = new JLabel(names);
+		JLabel supervisors = new JLabel("<html><body><p style = \"word-wrap: normal; width:"+this.getWidth()/5+" \">"+names+"</p></body></html>");
 		supervisors.setHorizontalAlignment(SwingConstants.RIGHT);
 		this.add(supervisors);
 		
